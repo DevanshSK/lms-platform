@@ -1,3 +1,5 @@
+"use client";
+import { useLogin } from "@/hooks";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"; 
 import { Button } from "../ui/button";
 import {
@@ -13,6 +15,9 @@ import {
 
 
 const UserNav = () => {
+
+  const {handleLogout} = useLogin();
+
     return ( <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="relative h-8 w-8 rounded-full">
@@ -35,19 +40,16 @@ const UserNav = () => {
           <DropdownMenuGroup>
             <DropdownMenuItem>
               Profile
-              {/* <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut> */}
             </DropdownMenuItem>
             
             <DropdownMenuItem>
               Settings
-              {/* <DropdownMenuShortcut>⌘S</DropdownMenuShortcut> */}
             </DropdownMenuItem>
             
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={handleLogout}>
             Log out
-            {/* <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut> */}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu> );
