@@ -6,37 +6,58 @@ import { setAuth, logout } from "@/redux/features/auth/authSlice";
 import { useToast } from "@/components/ui/use-toast";
 import FormData from "form-data";
 
+import { TypeOf, object, string } from "zod";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+// Zos login schema
+const loginSchema = object({
+    email: string().min(1, "Email is required")
+        .email("Email address is invalid"),
+    password: string()
+        .min(1, "Password is required")
+        .min(5, "Password must be more than 5 characters"),
+})
+// Export login schema type
+export type LoginInput = TypeOf<typeof loginSchema>;
+
 export default function useLogin() {
     const router = useRouter();
     const { toast } = useToast();
     const dispatch = useAppDispatch();
     const [login, { isLoading }] = useLoginMutation();
 
-    const [formData, setFormData] = useState({
-        email: '',
-        password: ''
-    });
+    // React hook form setup.
+    const form = useForm<LoginInput>({
+        resolver: zodResolver(loginSchema),
+        defaultValues: {
+            email: "",
+            password: ""
+        }
+    })
 
-    const { email, password } = formData;
+    // const [formData, setFormData] = useState({
+    //     email: '',
+    //     password: ''
+    // });
+
+    // const { email, password } = formData;
 
     const handleLogout = () => {
         dispatch(logout());
         localStorage.removeItem('userToken');
     }
 
-    const onChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target;
-        setFormData({ ...formData, [name]: value });
-    }
+    // const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+    //     const { name, value } = event.target;
+    //     setFormData({ ...formData, [name]: value });
+    // }
 
-    const onSubmit = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        
+    // const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const onSubmit : SubmitHandler<LoginInput> = (values) => {
         const loginFormData = new FormData();
-        loginFormData.append("username", email);
-        loginFormData.append("password", password);
-
-
+        loginFormData.append("username", values.email);
+        loginFormData.append("password", values.password);
         login(loginFormData)
             .unwrap()
             .then((data) => {
@@ -59,10 +80,8 @@ export default function useLogin() {
 
 
     return {
-        email,
-        password,
         isLoading,
-        onChange,
+        form,
         onSubmit,
         handleLogout
     }
