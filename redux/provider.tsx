@@ -1,7 +1,10 @@
 "use client";
 
+import { useEffect } from "react";
 import { makeStore } from "./store";
 import { Provider } from "react-redux";
+import { setAuth } from "./features/auth/authSlice";
+import axios from "axios";
 
 interface Props{
     children: React.ReactNode;
@@ -14,5 +17,12 @@ interface Props{
  * which represents the child components that will be wrapped by the Provider.
  */
 export default function CustomProvider({children} : Props){
-    return <Provider store={makeStore()}>{children}</Provider>
+    const store = makeStore();
+
+    useEffect(() => {
+        const userToken = typeof window !== 'undefined' ? localStorage.getItem('userToken') || null : null;
+        store.dispatch(setAuth(userToken as string));
+        axios.defaults.headers.common['Authorization'] = !!userToken ? `Bearer ${userToken}` : null;
+    }, [store]);
+    return <Provider store={store}>{children}</Provider>
 } 

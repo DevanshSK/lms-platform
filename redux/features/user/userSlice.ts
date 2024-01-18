@@ -6,7 +6,7 @@ interface IUserState{
     user: IUser | null;
 }
 
-const initialState: IUserState = {
+export const initialState: IUserState = {
     user: null,
 }
 

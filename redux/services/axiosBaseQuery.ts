@@ -37,11 +37,7 @@ export const axiosQuery =
     }
   }
 
-// export const getAxiosBaseQuery = () => {
-//   return axiosQuery({
-//     baseUrl: `${process.env.NEXT_PUBLIC_BACKEND_URL}`,
-// });
-// }
+
 
 
 export const axiosBaseQuery = axiosQuery({

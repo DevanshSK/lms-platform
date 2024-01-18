@@ -7,15 +7,18 @@ export interface AuthState{
     isAuthenticated: boolean;
 }
 
-const initialState: AuthState = {
+export const initialState: AuthState = {
     token: null,
-    isAuthenticated: true,
+    isAuthenticated: false,
 }
 
 const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers:{
+        setInitialState: (state, action: PayloadAction<AuthState>) => {
+            return {...state, ...action.payload};
+        },
         setAuth: (state, action: PayloadAction<string>) => {
             state.token = action.payload;
             state.isAuthenticated = !!action.payload;
@@ -27,7 +30,7 @@ const authSlice = createSlice({
     }
 })
 
-export const {setAuth, logout} = authSlice.actions;
+export const {setAuth, logout, setInitialState} = authSlice.actions;
 export const selectToken = (state: RootState) => state.auth.token;
 export const selectIsAuthenticated = (state: RootState) => state.auth.isAuthenticated;
 export default authSlice.reducer;

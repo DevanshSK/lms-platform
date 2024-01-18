@@ -21,6 +21,7 @@ export default function useLogin() {
 
     const handleLogout = () => {
         dispatch(logout());
+        localStorage.removeItem('userToken');
     }
 
     const onChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -40,6 +41,7 @@ export default function useLogin() {
             .unwrap()
             .then((data) => {
                 dispatch(setAuth(data.access_token));
+                localStorage.setItem('userToken', data.access_token);
                 toast({
                     description: "User logged in",
                 });
@@ -50,7 +52,7 @@ export default function useLogin() {
                 console.log(error);
                 toast({
                     variant: 'destructive',
-                    description: "Something went wrong, Try again"
+                    description: (error.data.detail as string) || "Something went wrong, Try again"
                 })
             })
     }

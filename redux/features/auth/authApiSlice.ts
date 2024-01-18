@@ -1,6 +1,5 @@
-import baseQueryWithReauth from "@/redux/services/apiSlice";
 import { createApi } from '@reduxjs/toolkit/query/react'
-import { ILoginResult, IAuthParams, ISignUpResult } from "../../types";
+import { ILoginResult, ISignUpResult } from "../../types";
 import FormData from 'form-data';
 import { axiosBaseQuery } from "@/redux/services/axiosBaseQuery";
 
@@ -14,10 +13,10 @@ export const authApi = createApi({
     endpoints: builder => ({
         login: builder.mutation<ILoginResult, FormData>({
             query: (data) => ({
-                url: "/sign-in",
+                url: "/login",
                 method: "POST",
                 data,
-            })
+            }),
         }),
         signup: builder.mutation<ISignUpResult, FormData>({
             query: (data) => ({
