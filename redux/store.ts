@@ -5,8 +5,6 @@ import authReducer from './features/auth/authSlice';
 import userReducer from "./features/user/userSlice";
 
 // Redux persist
-import storage from "redux-persist/lib/storage";
-// import storageSession from "redux-persist/lib/storage/session";
 import { 
     persistReducer,
     FLUSH,
@@ -18,6 +16,31 @@ import {
 } from 'redux-persist';
 import { combineReducers } from "@reduxjs/toolkit";
 
+// Custom Storage object
+/**
+ * The above code is creating a persisted reducer using Redux Persist and combining multiple reducers
+ * into one.
+ * @returns The code is returning a persisted reducer.
+ */
+import createWebStorage from "redux-persist/lib/storage/createWebStorage";
+
+const createNoopStorage = () => {
+  return {
+    getItem(_key: any) {
+      return Promise.resolve(null);
+    },
+    setItem(_key: any, value: any) {
+      return Promise.resolve(value);
+    },
+    removeItem(_key: any) {
+      return Promise.resolve();
+    },
+  };
+};
+
+const storage =
+  typeof window === "undefined" ? createNoopStorage() : createWebStorage("local");
+
 
 const persistConfig = {
     key: "root",
@@ -26,16 +49,23 @@ const persistConfig = {
     whitelist: ['auth'],
 };
 
-const reducer = combineReducers({
+const combinedReducer = combineReducers({
     auth: authReducer,
     userState: userReducer,
     [authApi.reducerPath]: authApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
 })
 
-const persistedReducer = persistReducer(persistConfig, reducer);
+const persistedReducer = persistReducer(persistConfig, combinedReducer);
 
 
+
+/**
+ * The function `makeStore` creates a Redux store with a persisted reducer and additional middleware
+ * for authentication and user APIs.
+ * @returns The function `makeStore` is returning the result of calling `configureStore` with the
+ * provided configuration options.
+ */
 export const makeStore = () => {
 
     return configureStore({
@@ -47,27 +77,6 @@ export const makeStore = () => {
         }).concat([authApi.middleware, userApi.middleware]),
         devTools: true
     })
-    // return configureStore({
-    //     reducer: persistReducer,
-    //     middleware: buildGetDefaultMiddleware => buildGetDefaultMiddleware().concat([
-    //         authApi.middleware,
-    //         userApi.middleware
-    //     ]),
-    //     devTools: true
-    // })
-    // return configureStore({
-    //     reducer: {
-    //         [authApi.reducerPath]: authApi.reducer,
-    //         [userApi.reducerPath]: userApi.reducer,
-    //         auth: authReducer,
-    //         userState: userReducer,
-    //     },
-    //     middleware: buildGetDefaultMiddleware => buildGetDefaultMiddleware().concat([
-    //         authApi.middleware,
-    //         userApi.middleware
-    //     ]),
-    //     devTools: true
-    // })
 }
 
 export const store = makeStore();
