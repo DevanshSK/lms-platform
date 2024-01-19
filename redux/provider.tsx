@@ -1,10 +1,15 @@
 "use client";
 
 import { useEffect } from "react";
-import { makeStore } from "./store";
+import { makeStore, store } from "./store";
 import { Provider } from "react-redux";
 import { setAuth } from "./features/auth/authSlice";
 import axios from "axios";
+
+import { PersistGate } from "redux-persist/integration/react";
+import persistStore from "redux-persist/lib/persistStore";
+
+const persistor = persistStore(store);
 
 interface Props{
     children: React.ReactNode;
@@ -20,14 +25,18 @@ interface Props{
  * prop is also passed as a child of the Provider component.
  */
 export default function CustomProvider({children} : Props){
-    const store = makeStore();
+    // const store = makeStore();
 
-    useEffect(() => {
-        const userToken = typeof window !== 'undefined' ? localStorage.getItem('userToken') || null : null;
-        store.dispatch(setAuth(userToken as string));
-        axios.defaults.headers.common['Authorization'] = !!userToken ? `Bearer ${userToken}` : null;
-    }, [store]);
+    // useEffect(() => {
+    //     const userToken = typeof window !== 'undefined' ? localStorage.getItem('userToken') || null : null;
+    //     store.dispatch(setAuth(userToken as string));
+    //     axios.defaults.headers.common['Authorization'] = !!userToken ? `Bearer ${userToken}` : null;
+    // }, [store]);
 
     
-    return <Provider store={store}>{children}</Provider>
+    return <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+            {children}
+        </PersistGate>
+    </Provider>
 } 
