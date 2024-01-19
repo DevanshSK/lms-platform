@@ -11,10 +11,13 @@ interface Props{
 }
 
 /**
- * The CustomProvider component is a wrapper that provides the Redux store to its children components.
- * @param {Props}  - The above code is a TypeScript function component called "CustomProvider" that
- * acts as a wrapper for the Redux Provider component. It takes in a single prop called "children"
- * which represents the child components that will be wrapped by the Provider.
+ * The CustomProvider function is a React component that creates a Redux store and sets the
+ * authentication token in the store based on the userToken stored in localStorage.
+ * @param {Props}  - - `children`: The child components that will be wrapped by the `Provider`
+ * component.
+ * @returns The CustomProvider component is returning the Provider component from the react-redux
+ * library, with the store prop set to the store object created by the makeStore function. The children
+ * prop is also passed as a child of the Provider component.
  */
 export default function CustomProvider({children} : Props){
     const store = makeStore();
@@ -24,5 +27,7 @@ export default function CustomProvider({children} : Props){
         store.dispatch(setAuth(userToken as string));
         axios.defaults.headers.common['Authorization'] = !!userToken ? `Bearer ${userToken}` : null;
     }, [store]);
+
+    
     return <Provider store={store}>{children}</Provider>
 } 

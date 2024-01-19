@@ -1,4 +1,3 @@
-import { useState, ChangeEvent, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/redux/hooks";
 import { useLoginMutation } from "@/redux/features/auth/authApiSlice";
@@ -36,24 +35,13 @@ export default function useLogin() {
         }
     })
 
-    // const [formData, setFormData] = useState({
-    //     email: '',
-    //     password: ''
-    // });
 
-    // const { email, password } = formData;
 
     const handleLogout = () => {
         dispatch(logout());
         localStorage.removeItem('userToken');
     }
 
-    // const onChange = (event: ChangeEvent<HTMLInputElement>) => {
-    //     const { name, value } = event.target;
-    //     setFormData({ ...formData, [name]: value });
-    // }
-
-    // const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     const onSubmit : SubmitHandler<LoginInput> = (values) => {
         const loginFormData = new FormData();
         loginFormData.append("username", values.email);
