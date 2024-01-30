@@ -2,14 +2,18 @@ import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/redux/hooks";
 import { useLoginMutation } from "@/redux/features/auth/authApiSlice";
 import { setAuth, logout } from "@/redux/features/auth/authSlice";
-import { useToast } from "@/components/ui/use-toast";
 import FormData from "form-data";
 
 import { TypeOf, object, string } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import toast from "react-hot-toast";
+import { useGetUserQuery, userApi } from "@/redux/features/user/userApiSlice";
+import { jwtDecode } from "jwt-decode";
+import axios from "axios";
+import { logoutUser, setUser } from "@/redux/features/user/userSlice";
 
-// Zos login schema
+// Zod login schema
 const loginSchema = object({
     email: string().min(1, "Email is required")
         .email("Email address is invalid"),
@@ -22,9 +26,10 @@ export type LoginInput = TypeOf<typeof loginSchema>;
 
 export default function useLogin() {
     const router = useRouter();
-    const { toast } = useToast();
     const dispatch = useAppDispatch();
     const [login, { isLoading }] = useLoginMutation();
+    // const {refetch} = useGetUserQuery();
+    
 
     // React hook form setup.
     const form = useForm<LoginInput>({
@@ -35,34 +40,39 @@ export default function useLogin() {
         }
     })
 
-
-
     const handleLogout = () => {
         dispatch(logout());
-        localStorage.removeItem('userToken');
+        dispatch(logoutUser());
+        // localStorage.removeItem('userToken');
     }
 
-    const onSubmit : SubmitHandler<LoginInput> = (values) => {
+    const onSubmit : SubmitHandler<LoginInput> = async (values) => {
         const loginFormData = new FormData();
         loginFormData.append("username", values.email);
         loginFormData.append("password", values.password);
+        
+        // try {
+        //     await login(loginFormData);
+        //     // await getUser.refetch();
+        //     console.log(userData);
+        //     toast.success("User logged in");
+        //     router.push('/');
+        // } catch (error) {
+        //     console.log("LOGIN ERROR")
+        //     toast.error("Something went wrong");
+        //     console.log(error);
+        // }
+
         login(loginFormData)
             .unwrap()
             .then((data) => {
                 dispatch(setAuth(data.access_token));
-                localStorage.setItem('userToken', data.access_token);
-                toast({
-                    description: "User logged in",
-                });
-                router.push('/');
+                toast.success("User signed in successfully");
             })
             .catch((error) => {
                 console.log("LOGIN ERROR")
                 console.log(error);
-                toast({
-                    variant: 'destructive',
-                    description: (error.data.detail as string) || "Something went wrong, Try again"
-                })
+                toast.error((error.data.detail as string) || "Something went wrong, Try again");
             })
     }
 

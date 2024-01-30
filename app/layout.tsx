@@ -1,7 +1,7 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
-import { Toaster } from '@/components/ui/toaster'
 import CustomProvider from '@/redux/provider'
+import { Toaster } from 'react-hot-toast'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <CustomProvider>
           {children}
-          <Toaster />
+          <Toaster position='bottom-right' />
         </CustomProvider>
       </body>
     </html>

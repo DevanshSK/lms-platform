@@ -1,53 +1,64 @@
-import { useState, ChangeEvent, FormEvent } from "react";
 import { useRouter } from "next/navigation";
+import { useState, ChangeEvent, FormEvent } from "react";
 import { useSignupMutation } from "@/redux/features/auth/authApiSlice";
-import { useToast } from "@/components/ui/use-toast";
 import FormData from "form-data";
+
+import { TypeOf, object, string } from "zod";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import toast from "react-hot-toast";
+
+// ZOD signup schema
+const registerSchema = object({
+    email: string().min(1, "Email is required").email("Email address is invalid"),
+    name: string().min(1, "Name is required"),
+    password: string()
+        .min(1, "Password is required")
+        .min(5, "Password must be more than 5 characters")
+        .max(32, 'Password must be less than 32 characters'),
+    repassword: string()
+        .min(1, "Please confirm your password"),
+    education: string(),
+}).refine((data) => data.password === data.repassword, {
+    path: ['repassword'],
+    message: "Passwords do not match"
+});
+
+export type RegisterInput = TypeOf<typeof registerSchema>;
 
 export default function useRegister() {
     const router = useRouter();
-    const { toast } = useToast();
     const [register, { isLoading }] = useSignupMutation();
 
-    const [formData, setFormData] = useState({
-        first_name: '',
-        last_name: '',
-        email: '',
-        password: '',
-        re_password: ''
+    // React hook form setup
+    const form = useForm<RegisterInput>({
+        resolver: zodResolver(registerSchema),
+        defaultValues: {
+            email: "",
+            name: "",
+            password: "",
+            repassword: "",
+            education: ""
+        }
     });
 
-    const { first_name, last_name, email, password, re_password } = formData;
-
-    const onChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target;
-        setFormData({ ...formData, [name]: value });
-    }
-
-    const onSubmit = (event: FormEvent<HTMLFormElement>) => {
-        const registerFormData = new FormData();
-        registerFormData.append('username', email);
-        registerFormData.append('password', password);
-
-        register(registerFormData)
+    const onSubmit: SubmitHandler<RegisterInput> = (values) => {
+        register(values)
             .unwrap()
-            .then(() => {
-                toast({ description: 'Please check email to verify account' });
-                router.push('/auth/login');
+            .then((data) => {
+                toast.success("User registered successfully!");
+                router.push('/sign-in');
             })
-            .catch(() => {
-                toast({ variant: "destructive", description: 'Failed to register account' });
-            });
+            .catch((error) => {
+                console.error("REGISTER ERROR");
+                console.log(error);
+                toast.error("Something went wrong, try again!");
+            })
     }
 
     return {
-		first_name,
-		last_name,
-		email,
-		password,
-		re_password,
-		isLoading,
-		onChange,
-		onSubmit,
-	};
+        isLoading,
+        form,
+        onSubmit
+    };
 }

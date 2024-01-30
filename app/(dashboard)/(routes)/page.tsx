@@ -1,6 +1,8 @@
 import UserNav from '@/components/navbar/user-nav'
+import { useGetUserQuery } from '@/redux/features/user/userApiSlice';
 
 export default function Home() {
+
   return (
     <div className='h-full flex items-center gap-3 justify-center'>
       <span>This is home page</span>

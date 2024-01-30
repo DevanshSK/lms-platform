@@ -8,8 +8,11 @@ export interface ILoginResult{
     token_type: string;
 } 
 export interface ISignUpResult{
-    username: string;
+    email: string;
     id: number;
+    name: string;
+    education: string;
+    role: string;
     created_at: string;
 }
 export interface IRefreshResponse{
@@ -21,5 +24,8 @@ export interface IRefreshResponse{
 export interface IUser{
     email: string;
     id: number;
+    name: string;
+    education: string;
+    role: string;
     created_at: string;
 }

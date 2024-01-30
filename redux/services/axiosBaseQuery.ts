@@ -1,8 +1,12 @@
 import type { BaseQueryFn } from "@reduxjs/toolkit/dist/query/react";
 import axios from "axios";
 import type { AxiosRequestConfig, AxiosError } from "axios";
+import { selectToken } from "../features/auth/authSlice";
+import { store } from "../store";
 
-export const axiosQuery =
+const axiosInstance = axios.create();
+
+const axiosQuery =
   (
     { baseUrl }: { baseUrl: string } = { baseUrl: '' }
   ): BaseQueryFn<
@@ -18,7 +22,22 @@ export const axiosQuery =
   > =>
   async ({ url, method, data, params, headers }) => {
     try {
-      const result = await axios({
+      const token = selectToken(store.getState());
+      // const axiosInstance = axios.create();
+
+      axiosInstance.interceptors.request.use((config) => {
+        if(token){
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+        // config.headers['ngrok-skip-browser-warning'] = "69420";
+        return config;
+      }, (error) => {
+        return Promise.reject(error);
+      })
+
+      
+
+      const result = await axiosInstance({
         url: baseUrl + url,
         method,
         data,

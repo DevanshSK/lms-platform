@@ -21,6 +21,7 @@ import { useEffect } from 'react';
 
 const SignInPage = () => {
   const { isLoading, form, onSubmit } = useLogin();
+  const {isValid} = form.formState;
 
     useEffect(() => {
       if(form.formState.isSubmitSuccessful){
@@ -44,7 +45,7 @@ const SignInPage = () => {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input placeholder='Enter your email' {...field} />
+                      <Input disabled={isLoading} placeholder='Enter your email' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -55,7 +56,7 @@ const SignInPage = () => {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input placeholder='Enter your password' {...field} />
+                      <Input disabled={isLoading} type='password' placeholder='Enter your password' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
