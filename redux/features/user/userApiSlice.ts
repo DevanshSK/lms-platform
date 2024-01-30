@@ -6,6 +6,7 @@ import { axiosBaseQuery } from "@/redux/services/axiosBaseQuery";
 export const userApi = createApi({
     reducerPath: "userApi",
     baseQuery: axiosBaseQuery,
+    tagTypes: ["User"],
     endpoints: (builder) => ({
         getUser: builder.query<IUser, void>({
             query: () => ({
@@ -18,6 +19,7 @@ export const userApi = createApi({
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {
                 try {
                     const { data } = await queryFulfilled;
+                    console.log(data)
                     dispatch(setUser(data));
                 } catch (error) {
                     console.log("Error fetching current user", error)

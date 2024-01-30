@@ -1,4 +1,3 @@
-import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/redux/hooks";
 import { useLoginMutation } from "@/redux/features/auth/authApiSlice";
 import { setAuth, logout } from "@/redux/features/auth/authSlice";
@@ -8,10 +7,8 @@ import { TypeOf, object, string } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
-import { useGetUserQuery, userApi } from "@/redux/features/user/userApiSlice";
-import { jwtDecode } from "jwt-decode";
-import axios from "axios";
-import { logoutUser, setUser } from "@/redux/features/user/userSlice";
+import { userApi } from "@/redux/features/user/userApiSlice";
+import { logoutUser } from "@/redux/features/user/userSlice";
 
 // Zod login schema
 const loginSchema = object({
@@ -25,11 +22,8 @@ const loginSchema = object({
 export type LoginInput = TypeOf<typeof loginSchema>;
 
 export default function useLogin() {
-    const router = useRouter();
     const dispatch = useAppDispatch();
-    const [login, { isLoading }] = useLoginMutation();
-    // const {refetch} = useGetUserQuery();
-    
+    const [login, { isLoading }] = useLoginMutation();    
 
     // React hook form setup.
     const form = useForm<LoginInput>({
@@ -50,23 +44,12 @@ export default function useLogin() {
         const loginFormData = new FormData();
         loginFormData.append("username", values.email);
         loginFormData.append("password", values.password);
-        
-        // try {
-        //     await login(loginFormData);
-        //     // await getUser.refetch();
-        //     console.log(userData);
-        //     toast.success("User logged in");
-        //     router.push('/');
-        // } catch (error) {
-        //     console.log("LOGIN ERROR")
-        //     toast.error("Something went wrong");
-        //     console.log(error);
-        // }
 
         login(loginFormData)
             .unwrap()
-            .then((data) => {
+            .then(async (data) => {
                 dispatch(setAuth(data.access_token));
+                await dispatch(userApi.endpoints.getUser.initiate());
                 toast.success("User signed in successfully");
             })
             .catch((error) => {
@@ -81,6 +64,5 @@ export default function useLogin() {
         isLoading,
         form,
         onSubmit,
-        handleLogout
     }
 }

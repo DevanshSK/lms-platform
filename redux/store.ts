@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { authApi } from "./features/auth/authApiSlice";
 import { userApi } from "./features/user/userApiSlice";
+import { courseApi } from "./features/courses/courseApiSlice";
 import authReducer from './features/auth/authSlice';
 import userReducer from "./features/user/userSlice";
 
@@ -54,6 +55,7 @@ const combinedReducer = combineReducers({
     userState: userReducer,
     [authApi.reducerPath]: authApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
+    [courseApi.reducerPath]: courseApi.reducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, combinedReducer);
@@ -74,7 +76,7 @@ export const makeStore = () => {
             serializableCheck: {
                 ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
             }
-        }).concat([authApi.middleware, userApi.middleware]),
+        }).concat([authApi.middleware, userApi.middleware, courseApi.middleware]),
         devTools: true
     })
 }

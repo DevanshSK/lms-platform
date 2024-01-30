@@ -29,3 +29,15 @@ export interface IUser{
     role: string;
     created_at: string;
 }
+
+
+export interface ICourseResponse{
+    id: number;
+    course_name: string;
+    description: string;
+    teacher: string;
+    img_url: string;
+    course_code: string;
+    is_published: boolean;
+    created_at: string;
+}

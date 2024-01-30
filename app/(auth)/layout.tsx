@@ -2,7 +2,7 @@ import AuthWrapper from "@/utils/AuthWrapper";
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
     const isProtected = false;
-    const redirectIfAuthenticated = '/'; 
+    const redirectIfAuthenticated = '/dashboard'; 
     const redirectIfNotAuthenticated = '/sign-in';
 
     return (

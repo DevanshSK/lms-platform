@@ -19,14 +19,6 @@ export const authApi = createApi({
                 method: "POST",
                 data,
             }),
-            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-                try {
-                    await queryFulfilled;
-                    dispatch(userApi.endpoints.getUser.initiate());
-                } catch (error) {
-                    console.log("Error fetching current user", error)
-                }
-            },
         }),
         signup: builder.mutation<ISignUpResult, RegisterInput>({
             query: ({email, name, password, education}) => ({

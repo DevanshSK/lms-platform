@@ -1,21 +1,21 @@
-// import { useRouter } from "next/navigation";
-// import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-// import { clearToken } from "@/redux/features/auth/authSlice";
-// import { logOut } from "@/redux/features/user/userSlice";
+import { logout } from "@/redux/features/auth/authSlice";
+import { logoutUser, selectUser } from "@/redux/features/user/userSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { useRouter } from "next/navigation";
 
-// export default function useUser(){
-//     const dispatch = useAppDispatch();
-//     const { user } = useAppSelector(state => state.userState);
-//     const router = useRouter();
+export default function useUser(){
+    const router = useRouter();
+    const dispatch = useAppDispatch();
+    const user = useAppSelector(selectUser);
     
-//     const logout = () => {
-//         dispatch(clearToken());
-//         dispatch(logOut());
-//         router.push('/sign-in');
-//     }
+    const handleLogout = () => {
+        dispatch(logout());
+        dispatch(logoutUser());
+        router.push('/');
+    }
 
-//     return {
-//         user,
-//         logout
-//     }
-// }
+    return {
+        user,
+        handleLogout
+    }
+}

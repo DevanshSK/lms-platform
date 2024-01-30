@@ -26,10 +26,10 @@ const axiosQuery =
       // const axiosInstance = axios.create();
 
       axiosInstance.interceptors.request.use((config) => {
+        console.log("USER TOKEN", token)
         if(token){
           config.headers.Authorization = `Bearer ${token}`;
         }
-        // config.headers['ngrok-skip-browser-warning'] = "69420";
         return config;
       }, (error) => {
         return Promise.reject(error);
