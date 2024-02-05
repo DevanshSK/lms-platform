@@ -59,7 +59,7 @@ export default function useCreateCourse(){
 
         createCourse(courseData)
         .unwrap()
-        .then(async () => {
+        .then((data) => {
             toast.success("Course created successfully");
             // router.push("/dahsboard/teacher")
         })

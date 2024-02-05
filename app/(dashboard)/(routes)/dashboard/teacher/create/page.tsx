@@ -1,11 +1,4 @@
 "use client"
-
-import * as z from 'zod';
-import axios from 'axios';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
-
 import {
     Form,
     FormControl,
@@ -21,35 +14,25 @@ import Link from 'next/link';
 
 import toast from 'react-hot-toast';
 import useCreateCourse from '@/hooks/courses/useCreateCourse';
+import { useGetCategoriesQuery } from '@/redux/features/category/categoryApiSlice';
+import { Combobox } from '@/components/ui/combobox';
 
-const formSchema = z.object({
-    title: z.string().min(1, {
-        message: "Title is required",
-    })
-})
 
 const CreatePage = () => {
-    const router = useRouter();
-    // const form = useForm<z.infer<typeof formSchema>>({
-    //     resolver: zodResolver(formSchema),
-    //     defaultValues: {
-    //         title: ""
-    //     }
-    // })
+    const { data, isLoading, isError } = useGetCategoriesQuery();
     const { form, onSubmit } = useCreateCourse(); 
 
-    const { isSubmitting, isValid } = form.formState;
+    if(isLoading){
+        return (
+            <p className='text-center p-5 animate-pulse font-semibold'>Loading....</p>
+        )
+    }
+    const categories = data?.map( category => ({
+        label: category.cate_name, value: category.id
+    }));
+    
 
-    // const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    //     try {
-    //         const response = await axios.post("/api/course", values);
-    //         router.push(`/teacher/courses/${response.data.id}`);
-    //     } catch (error) {
-    //         console.log("Something went wrong with creating course");
-    //         console.log(error);
-    //         toast.error("Something went wrong")
-    //     }
-    // }
+    const { isSubmitting, isValid } = form.formState;
 
     return (
         <div className='max-w-5xl mx-auto flex md:items-center md:justify-center min-h-full p-6'>
@@ -107,7 +90,8 @@ const CreatePage = () => {
                             <FormItem>
                                 <FormLabel>Course Category</FormLabel>
                                 <FormControl>
-                                    <Input type='number' disabled={isSubmitting} placeholder="e.g. 'Enter course category id' " {...field} />
+                                    {/* <Input type='number' disabled={isSubmitting} placeholder="e.g. 'Enter course category id' " {...field} /> */}
+                                    <Combobox options={categories || []} {...field} />
                                 </FormControl>
                                 <FormDescription>Which category does the course belong?</FormDescription>
                                 <FormMessage />

@@ -31,6 +31,7 @@ export interface IUser{
 }
 
 
+// Course Types
 export interface ICourseResponse{
     id: number;
     course_name: string;
@@ -39,5 +40,39 @@ export interface ICourseResponse{
     img_url: string;
     course_code: string;
     is_published: boolean;
+    created_at: string;
+}
+
+export interface ICourseGetResponse{
+    Course: {
+        id: number;
+        course_name: string;
+        description: string;
+        teacher: string;
+        img_url: string;
+        course_code: string;
+        is_published: boolean;
+        created_at: string;
+    }
+    enrollments: number;
+}
+
+
+// Category Types
+export interface ICategoryResponse{
+    id: number;
+    cate_name: string;
+}
+
+// Chapter types
+export interface IChapterResponse{
+    id: number;
+    title: string;
+    description: string;
+    chapter_no: number;
+    video_url: string;
+    pdf_url: string;
+    is_published: true;
+    course_id: number;
     created_at: string;
 }
