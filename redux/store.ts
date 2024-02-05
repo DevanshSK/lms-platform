@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
+
+import authReducer from './features/auth/authSlice';
+import userReducer from "./features/user/userSlice";
+
 import { authApi } from "./features/auth/authApiSlice";
 import { userApi } from "./features/user/userApiSlice";
 import { courseApi } from "./features/courses/courseApiSlice";
 import { categoryApi } from "./features/category/categoryApiSlice";
-import authReducer from './features/auth/authSlice';
-import userReducer from "./features/user/userSlice";
 
 // Redux persist
 import { 
@@ -48,7 +50,7 @@ const persistConfig = {
     key: "root",
     version: 1,
     storage,
-    whitelist: ['auth', 'userSlice'],
+    whitelist: ['auth', 'userSlice', "userApi"],
 };
 
 const combinedReducer = combineReducers({

@@ -61,7 +61,7 @@ export default function useCreateCourse(){
         .unwrap()
         .then((data) => {
             toast.success("Course created successfully");
-            // router.push("/dahsboard/teacher")
+            router.push(`/dashboard/teacher/courses/${data.id}`);
         })
         .catch((error) => {
             console.log("COURSE CREATION ERROR")

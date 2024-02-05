@@ -11,11 +11,13 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
   } from "../ui/dropdown-menu";
+import { useGetUserQuery } from "@/redux/features/user/userApiSlice";
 
 
 const UserNav = () => {
 
-  const {handleLogout, user} = useUser();
+  const {handleLogout} = useUser();
+  const {data: user, isLoading} = useGetUserQuery();
 
     return ( <DropdownMenu>
         <DropdownMenuTrigger asChild>

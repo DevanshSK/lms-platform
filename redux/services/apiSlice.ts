@@ -1,13 +1,14 @@
-// import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-// import type {
-//     BaseQueryFn,
-//     FetchArgs,
-//     FetchBaseQueryError,
-// } from "@reduxjs/toolkit/query";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import type {
+    BaseQueryFn,
+    FetchArgs,
+    FetchBaseQueryError,
+} from "@reduxjs/toolkit/query";
+import {  selectToken, AuthState } from "../features/auth/authSlice";
 // import { setToken, clearToken, selectToken, AuthState } from "../features/auth/authSlice";
-// import { Mutex } from "async-mutex";
-// import { RootState } from "../store";
-// import { IRefreshResponse } from "../types";
+import { Mutex } from "async-mutex";
+import { RootState } from "../store";
+import { IRefreshResponse } from "../types";
 
 // /* The code snippet is defining an interface `IRefreshResponse` which represents the shape of the
 // response object received when refreshing the access token. It has two properties: `access_token` of
@@ -15,21 +16,21 @@
 
 
 // // create a new mutex
-// const mutex = new Mutex();
-// const baseQuery = fetchBaseQuery({
-//     baseUrl: `${process.env.NEXT_PUBLIC_BACKEND_URL}`,
-//     credentials: "include",
+const mutex = new Mutex();
+const baseQuery = fetchBaseQuery({
+    baseUrl: `${process.env.NEXT_PUBLIC_BACKEND_URL}`,
+    credentials: "include",
     
-//     // credentials: "same-origin",
-//     prepareHeaders: (headers, { getState }) => {
-//         const token = selectToken(getState() as RootState);
-//         headers.set("Content-Type", "application/json");
-//         if (token) {
-//             headers.set('Authorization', `Bearer ${token}`);
-//         }
-//         return headers;
-//     },
-// });
+    // credentials: "same-origin",
+    prepareHeaders: (headers, { getState }) => {
+        const token = selectToken(getState() as RootState);
+        // headers.set("Content-Type", "application/json");
+        if (token) {
+            headers.set('Authorization', `Bearer ${token}`);
+        }
+        return headers;
+    },
+});
 
 // /**
 //  * The above function is a TypeScript implementation of a base query function that handles
@@ -110,3 +111,4 @@
 
 
 // export default baseQueryWithReauth;
+export default baseQuery;

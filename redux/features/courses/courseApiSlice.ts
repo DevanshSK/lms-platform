@@ -1,26 +1,24 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { axiosBaseQuery } from "@/redux/services/axiosBaseQuery";
 import FormData from "form-data";
 import { ICourseGetResponse, ICourseResponse } from "@/redux/types";
+import baseQuery from "@/redux/services/apiSlice";
 
 export const courseApi = createApi({
     reducerPath: "courseApi",
-    baseQuery: axiosBaseQuery,
+    baseQuery: baseQuery,
     tagTypes: ["Courses"],
     endpoints: (builder) => ({
         createCourse: builder.mutation<ICourseResponse, FormData>({
             query: (course) => ({
                 url: "/course",
                 method: "POST",
-                data: course,
+                body: course,
+                formData: true
             }),
             invalidatesTags: [{ type: "Courses", id: "LIST" }],
         }),
         getAllCourses: builder.query<ICourseGetResponse[], void>({
-            query: () => ({
-                url: "/course",
-                method: "GET"
-            }),
+            query: () => "/course",
             providesTags: (result) =>
                 result
                     ? [
@@ -37,10 +35,7 @@ export const courseApi = createApi({
 
         }),
         getCourse: builder.query<ICourseResponse, number>({
-            query: (id) => ({
-                url: `/course/${id}`,
-                method: "GET",
-            }),
+            query: (id) => `/course/${id}`,
             providesTags: (result, error, id) => [{ type: 'Courses', id }]
         }),
 
@@ -48,7 +43,8 @@ export const courseApi = createApi({
             query: ({ id, course }) => ({
                 url: `/course/${id}`,
                 method: "PUT",
-                data: course,
+                body: course,
+                formData: true
             }),
             invalidatesTags: (result, error, {id}) => result ?
                 [

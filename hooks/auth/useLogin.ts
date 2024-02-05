@@ -49,7 +49,7 @@ export default function useLogin() {
             .unwrap()
             .then(async (data) => {
                 dispatch(setAuth(data.access_token));
-                await dispatch(userApi.endpoints.getUser.initiate());
+                dispatch(userApi.endpoints.getUser.initiate());
                 toast.success("User signed in successfully");
             })
             .catch((error) => {

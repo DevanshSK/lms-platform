@@ -1,27 +1,24 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { axiosBaseQuery } from "@/redux/services/axiosBaseQuery";
 import { ICategoryResponse } from "@/redux/types";
+import baseQuery from "@/redux/services/apiSlice";
 
 export const categoryApi = createApi({
     reducerPath: "categoryApi",
-    baseQuery: axiosBaseQuery,
+    baseQuery: baseQuery,
     tagTypes: ["Categories"],
     endpoints: (builder) => ({
         createCategory: builder.mutation<ICategoryResponse, string>({
             query: (title) => ({
                 url: "/category",
                 method: "POST",
-                data: {
+                body: {
                     cate_name: title
                 },
             }),
             invalidatesTags: [{ type: "Categories", id: "LIST" }],
         }),
         getCategories: builder.query<ICategoryResponse[], void>({
-            query: () => ({
-                url: "/category",
-                method: "GET"
-            }),
+            query: () => "/category",
             providesTags: (result) =>
                 result
                     ? [
