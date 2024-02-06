@@ -7,9 +7,11 @@ export const userApi = createApi({
     reducerPath: "userApi",
     baseQuery: baseQuery,
     tagTypes: ["User"],
+    
     endpoints: (builder) => ({
         getUser: builder.query<IUser, void>({
             query: () => "user/me",
+            providesTags: ['User'],
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {
                 try {
                     const { data } = await queryFulfilled;

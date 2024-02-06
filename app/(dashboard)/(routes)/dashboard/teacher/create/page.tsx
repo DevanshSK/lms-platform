@@ -16,6 +16,7 @@ import toast from 'react-hot-toast';
 import useCreateCourse from '@/hooks/courses/useCreateCourse';
 import { useGetCategoriesQuery } from '@/redux/features/category/categoryApiSlice';
 import { Combobox } from '@/components/ui/combobox';
+import { Textarea } from "@/components/ui/textarea";
 
 
 const CreatePage = () => {
@@ -57,7 +58,7 @@ const CreatePage = () => {
                             <FormItem>
                                 <FormLabel>Course Description</FormLabel>
                                 <FormControl>
-                                    <Input disabled={isSubmitting} placeholder="e.g. 'Enter course description' " {...field} />
+                                    <Textarea disabled={isSubmitting} placeholder="e.g. 'Enter course description' " {...field} />
                                 </FormControl>
                                 <FormDescription>Give some details about the course?</FormDescription>
                                 <FormMessage />

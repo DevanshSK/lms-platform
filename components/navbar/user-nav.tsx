@@ -17,7 +17,7 @@ import { useGetUserQuery } from "@/redux/features/user/userApiSlice";
 const UserNav = () => {
 
   const {handleLogout} = useUser();
-  const {data: user, isLoading} = useGetUserQuery();
+  const {data: user} = useGetUserQuery();
 
     return ( <DropdownMenu>
         <DropdownMenuTrigger asChild>

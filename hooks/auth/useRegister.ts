@@ -43,17 +43,20 @@ export default function useRegister() {
     });
 
     const onSubmit: SubmitHandler<RegisterInput> = (values) => {
-        register(values)
-            .unwrap()
-            .then((data) => {
-                toast.success("User registered successfully!");
+        toast.promise(register(values)
+        .unwrap(), 
+        {
+            loading: "Signing up...",
+            success: () => {
                 router.push('/sign-in');
-            })
-            .catch((error) => {
+                return "User registered successfully."
+            },
+            error: (error) => {
                 console.error("REGISTER ERROR");
                 console.log(error);
-                toast.error("Something went wrong, try again!");
-            })
+                return (error.data.detail as string) || "Something went wrong, try again."
+            }
+        })
     }
 
     return {

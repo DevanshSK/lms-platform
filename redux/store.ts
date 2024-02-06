@@ -50,7 +50,7 @@ const persistConfig = {
     key: "root",
     version: 1,
     storage,
-    whitelist: ['auth', 'userSlice', "userApi"],
+    whitelist: ['auth'],
 };
 
 const combinedReducer = combineReducers({

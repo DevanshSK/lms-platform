@@ -7,8 +7,9 @@ import { TypeOf, object, string } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
-import { userApi } from "@/redux/features/user/userApiSlice";
+import { useGetUserQuery, userApi } from "@/redux/features/user/userApiSlice";
 import { logoutUser } from "@/redux/features/user/userSlice";
+import { useRouter } from "next/navigation";
 
 // Zod login schema
 const loginSchema = object({
@@ -23,7 +24,9 @@ export type LoginInput = TypeOf<typeof loginSchema>;
 
 export default function useLogin() {
     const dispatch = useAppDispatch();
-    const [login, { isLoading }] = useLoginMutation();    
+    const router = useRouter();
+    const [login, { isLoading }] = useLoginMutation();
+    const {refetch} = useGetUserQuery();
 
     // React hook form setup.
     const form = useForm<LoginInput>({
@@ -40,23 +43,28 @@ export default function useLogin() {
         // localStorage.removeItem('userToken');
     }
 
-    const onSubmit : SubmitHandler<LoginInput> = async (values) => {
+    const onSubmit: SubmitHandler<LoginInput> = async (values) => {
         const loginFormData = new FormData();
         loginFormData.append("username", values.email);
         loginFormData.append("password", values.password);
 
-        login(loginFormData)
-            .unwrap()
-            .then(async (data) => {
-                dispatch(setAuth(data.access_token));
-                dispatch(userApi.endpoints.getUser.initiate());
-                toast.success("User signed in successfully");
-            })
-            .catch((error) => {
-                console.log("LOGIN ERROR")
-                console.log(error);
-                toast.error((error.data.detail as string) || "Something went wrong, Try again");
-            })
+        toast.promise(
+            login(loginFormData).unwrap(),
+            {
+                loading: 'Signing in...',
+                success: (data) => {
+                    dispatch(setAuth(data.access_token));
+                    refetch();
+                    router.push("/");
+                    return "User signed in successfully"
+                },
+                error: (error) => {
+                    console.log("LOGIN ERROR");
+                    console.log(error);
+                    return (error.data.detail as string) || "Something went wrong, Try again"
+                },
+            }
+        );
     }
 
 
