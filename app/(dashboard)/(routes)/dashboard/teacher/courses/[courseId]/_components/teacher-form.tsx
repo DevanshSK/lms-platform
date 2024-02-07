@@ -41,10 +41,9 @@ const formSchema = z.object({
 
 const TeacherForm = ({ initialData, courseId }: TeacherFormProps) => {
     const [isEditing, setIsEditing] = useState(false);
-    const [updateCourse, { isLoading }] = useUpdateCourseMutation();
+    const [updateCourse] = useUpdateCourseMutation();
     const router = useRouter();
 
-    const { created_at, id, img_url, ...rest } = initialData;
 
     const toggleEdit = () => setIsEditing((current) => !current)
 
@@ -59,14 +58,8 @@ const TeacherForm = ({ initialData, courseId }: TeacherFormProps) => {
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
 
-        const updatedCourse = {
-            ...rest,
-            "teacher": values.teacher,
-        }
         const formData = new FormData();
-        for (let key in updatedCourse) {
-            formData.append(key, (updatedCourse as any)[key])
-        }
+        formData.append("teacher", values.teacher);
 
         toast.promise(
             updateCourse({ id: courseId, course: formData }).unwrap(),
@@ -105,7 +98,7 @@ const TeacherForm = ({ initialData, courseId }: TeacherFormProps) => {
             </div>
 
             {!isEditing ? (
-                <p>{initialData.course_name}</p>
+                <p>{initialData.teacher}</p>
             ) : (
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">

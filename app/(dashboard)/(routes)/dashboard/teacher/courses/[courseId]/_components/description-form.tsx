@@ -44,8 +44,6 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps) => {
     const [updateCourse] = useUpdateCourseMutation();
     const router = useRouter();
 
-    const { created_at, id, img_url, ...rest } = initialData;
-
     const toggleEdit = () => setIsEditing((current) => !current)
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -59,14 +57,8 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps) => {
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
 
-        const updatedCourse = {
-            ...rest,
-            "description": values.description,
-        }
         const formData = new FormData();
-        for (let key in updatedCourse) {
-            formData.append(key, (updatedCourse as any)[key])
-        }
+        formData.append("description", values.description);
 
         toast.promise(
             updateCourse({ id: courseId, course: formData }).unwrap(),

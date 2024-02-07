@@ -41,6 +41,8 @@ export interface ICourseResponse{
     course_code: string;
     is_published: boolean;
     created_at: string;
+    updated_at: string;
+    category: number;
 }
 
 export interface ICourseGetResponse{
@@ -53,6 +55,8 @@ export interface ICourseGetResponse{
         course_code: string;
         is_published: boolean;
         created_at: string;
+        updated_at: string;
+        category: number;
     }
     enrollments: number;
 }

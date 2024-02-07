@@ -1,5 +1,5 @@
 import { useAppDispatch } from "@/redux/hooks";
-import { useLoginMutation } from "@/redux/features/auth/authApiSlice";
+import { useLoginMutation, useLogoutMutation } from "@/redux/features/auth/authApiSlice";
 import { setAuth, logout } from "@/redux/features/auth/authSlice";
 import FormData from "form-data";
 
@@ -26,6 +26,7 @@ export default function useLogin() {
     const dispatch = useAppDispatch();
     const router = useRouter();
     const [login, { isLoading }] = useLoginMutation();
+    const [logout] = useLogoutMutation();
     const {refetch} = useGetUserQuery();
 
     // React hook form setup.
@@ -38,9 +39,21 @@ export default function useLogin() {
     })
 
     const handleLogout = () => {
-        dispatch(logout());
-        dispatch(logoutUser());
-        // localStorage.removeItem('userToken');
+        toast.promise(
+            logout().unwrap(),
+            {
+                loading: 'Logging out...',
+                success: () => {
+                    router.push("/");
+                    return "Logged out successfully."
+                },
+                error: (error) => {
+                    console.log("LOGOUT ERROR");
+                    console.log(error);
+                    return "Something went wrong, Try again"
+                },
+            }
+        );
     }
 
     const onSubmit: SubmitHandler<LoginInput> = async (values) => {
@@ -72,5 +85,6 @@ export default function useLogin() {
         isLoading,
         form,
         onSubmit,
+        handleLogout
     }
 }

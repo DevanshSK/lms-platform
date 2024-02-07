@@ -8,14 +8,22 @@ import DescriptionForm from "./_components/description-form";
 import TeacherForm from "./_components/teacher-form";
 import CourseCodeForm from "./_components/course-code-form";
 import ImageForm from "./_components/image-form";
+import { useGetCategoriesQuery } from "@/redux/features/category/categoryApiSlice";
+import CategoryForm from "./_components/category-form";
 
 
 const CourseIdPage = ({params} : {params: {courseId: number}}) => {
-    const { data: course, isLoading } = useGetCourseQuery(params.courseId);
+    const { data: course, isLoading: isCourseLoading } = useGetCourseQuery(params.courseId);
+    const {data: categories, isLoading: isCategoriesLoading} = useGetCategoriesQuery();
 
-    if(isLoading){
+    if(isCourseLoading || isCategoriesLoading) {
         return <p className='text-center p-5 animate-pulse font-semibold'>Loading....</p>
     }
+
+    const mappedCategories = categories?.map( category => ({
+        label: category.cate_name, value: category.id
+    }))
+
 
     if(!course){
         return redirect("/dashboard/teacher")
@@ -30,6 +38,7 @@ const CourseIdPage = ({params} : {params: {courseId: number}}) => {
         course.description,
         course.img_url,
         course.teacher,
+        course.category,
     ]
     const totalFields = requiredFields.length;
     const completedFields = requiredFields.filter(Boolean).length;
@@ -57,6 +66,7 @@ const CourseIdPage = ({params} : {params: {courseId: number}}) => {
                     <TeacherForm initialData={course} courseId={course.id} />
                     <CourseCodeForm initialData={course} courseId={course.id} />
                     <ImageForm initialData={course} courseId={course.id} />
+                    <CategoryForm initialData={course} courseId={course.id} options={mappedCategories} />
                     
                 </div>
             </div>

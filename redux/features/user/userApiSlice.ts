@@ -15,7 +15,7 @@ export const userApi = createApi({
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {
                 try {
                     const { data } = await queryFulfilled;
-                    console.log(data)
+                    // console.log(data)
                     dispatch(setUser(data));
                 } catch (error) {
                     console.log("Error fetching current user", error)

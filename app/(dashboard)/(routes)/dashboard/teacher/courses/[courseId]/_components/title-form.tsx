@@ -41,10 +41,8 @@ const formSchema = z.object({
 
 const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
     const [isEditing, setIsEditing] = useState(false);
-    const [updateCourse, { isLoading }] = useUpdateCourseMutation();
+    const [updateCourse] = useUpdateCourseMutation();
     const router = useRouter();
-
-    const { created_at, id, img_url, ...rest } = initialData;
 
     const toggleEdit = () => setIsEditing((current) => !current)
 
@@ -58,15 +56,8 @@ const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
     const { isSubmitting, isValid } = form.formState;
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-
-        const updatedCourse = {
-            ...rest,
-            "course_name": values.title,
-        }
         const formData = new FormData();
-        for (let key in updatedCourse) {
-            formData.append(key, (updatedCourse as any)[key])
-        }
+        formData.append("course_name", values.title);
 
         toast.promise(
             updateCourse({ id: courseId, course: formData }).unwrap(),

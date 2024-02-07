@@ -24,22 +24,24 @@ import { ICourseResponse } from "@/redux/types";
 import { useUpdateCourseMutation } from "@/redux/features/courses/courseApiSlice";
 import FormData from "form-data";
 import { Input } from "@/components/ui/input";
+import { Combobox } from "@/components/ui/combobox";
 
 
-interface CourseCodeFormProps {
+interface CategoryFormProps {
     initialData: ICourseResponse;
     courseId: number;
+    options: {label: string; value: number; }[] | undefined;
 }
 
 
 const formSchema = z.object({
-    code: z.string().min(1, {
-        message: "Course code is required",
+    category: z.coerce.number().min(1, {
+        message: "Course category is required",
     })
 })
 
 
-const CourseCodeForm = ({ initialData, courseId }: CourseCodeFormProps) => {
+const CategoryForm = ({ initialData, courseId, options }: CategoryFormProps) => {
     const [isEditing, setIsEditing] = useState(false);
     const [updateCourse] = useUpdateCourseMutation();
     const router = useRouter();
@@ -49,16 +51,17 @@ const CourseCodeForm = ({ initialData, courseId }: CourseCodeFormProps) => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            code: initialData?.course_code || ""
+            category: initialData?.category
         }
     })
+
+    const currentCategory = options?.find(c => c.value === initialData?.category)
 
     const { isSubmitting, isValid } = form.formState;
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-
         const formData = new FormData();
-        formData.append("course_code", values.code);
+        formData.append("category", values.category);
 
         toast.promise(
             updateCourse({ id: courseId, course: formData }).unwrap(),
@@ -83,32 +86,28 @@ const CourseCodeForm = ({ initialData, courseId }: CourseCodeFormProps) => {
     return (
         <div className="mt-6 border bg-slate-100 rounded-md p-4">
             <div className="font-medium flex items-center justify-between">
-                Course Code
+                Course Category
                 <Button variant="ghost" onClick={toggleEdit}>
                     {isEditing ? (
                             <>Cancel</>
                     ) : (
                         <>
                             <Pencil className="h-4 w-4 mr-2" />
-                            Edit Course Code
+                            Edit Category
                         </>
                     )}
                 </Button>
             </div>
 
             {!isEditing ? (
-                <p>{initialData.course_code}</p>
+                <p>{currentCategory?.label}</p>
             ) : (
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">
-                        <FormField control={form.control} name="code" render={({field}) => (
+                        <FormField control={form.control} name="category" render={({field}) => (
                             <FormItem>
                                 <FormControl>
-                                    <Input 
-                                        disabled={isSubmitting}
-                                        placeholder="e.g. Enter course code"
-                                        {...field}
-                                    />
+                                <Combobox options={options || []} {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -127,4 +126,4 @@ const CourseCodeForm = ({ initialData, courseId }: CourseCodeFormProps) => {
     );
 }
 
-export default CourseCodeForm;
+export default CategoryForm;

@@ -4,6 +4,8 @@ import FormData from 'form-data';
 import { RegisterInput } from '@/hooks/auth/useRegister';
 import baseQuery from '@/redux/services/apiSlice';
 import { userApi } from '../user/userApiSlice';
+import { logout } from './authSlice';
+import { logoutUser } from '../user/userSlice';
 
 /* The code `export const apiSlice = createApi({ baseQuery: baseQueryWithReauth, endpoints: builder =>
 ({}) })` is creating an API slice using the `createApi` function from the
@@ -36,7 +38,25 @@ export const authApi = createApi({
                 },
             })
         }),
+        logout: builder.mutation<void, void>({
+            query: () => ({
+                url: "/logout",
+                method: "GET"
+            }),
+            invalidatesTags: ['User'],
+            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+                try {
+                    await queryFulfilled;
+                    dispatch(logout());
+                    dispatch(logoutUser());
+                } catch (error) {
+                    console.log("Error Logging out", error);
+                    dispatch(logout());
+                    dispatch(logoutUser());
+                }
+            },
+        })
     })
 })
 
-export const { useLoginMutation, useSignupMutation } = authApi;
+export const { useLoginMutation, useSignupMutation, useLogoutMutation } = authApi;

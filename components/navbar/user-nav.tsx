@@ -1,5 +1,5 @@
 "use client";
-import { useUser } from "@/hooks";
+import { useLogin } from "@/hooks";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"; 
 import { Button } from "../ui/button";
 import {
@@ -16,7 +16,7 @@ import { useGetUserQuery } from "@/redux/features/user/userApiSlice";
 
 const UserNav = () => {
 
-  const {handleLogout} = useUser();
+  const {handleLogout} = useLogin();
   const {data: user} = useGetUserQuery();
 
     return ( <DropdownMenu>
@@ -49,7 +49,7 @@ const UserNav = () => {
             
     </DropdownMenuGroup> */}
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={handleLogout}>
+          <DropdownMenuItem onClick={() => handleLogout()}>
             Log out
           </DropdownMenuItem>
         </DropdownMenuContent>

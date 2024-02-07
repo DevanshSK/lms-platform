@@ -65,37 +65,26 @@ const ImageForm = ({ initialData, courseId }: ImageFormProps) => {
     const { isSubmitting, isValid } = form.formState;
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-
-        console.log("Image data");
-        console.log(values.image);
-        console.log(isValid, isSubmitting);
-
-        // const updatedCourse = {
-        //     ...rest,
-        //     "course_name": values.title,
-        // }
-        // const formData = new FormData();
-        // for (let key in updatedCourse) {
-        //     formData.append(key, (updatedCourse as any)[key])
-        // }
+        const formData = new FormData();
+        formData.append("img", values.image);
 
 
-        // toast.promise(
-        //     updateCourse({ id: courseId, course: formData }).unwrap(),
-        //     {
-        //         loading: 'Updating Course...',
-        //         success: (data) => {
-        //             toggleEdit();
-        //             router.refresh();
-        //             return "Course updated"
-        //         },
-        //         error: (error) => {
-        //             console.log("Course updation error");
-        //             console.log(error);
-        //             return "Something went wrong"
-        //         },
-        //     }
-        // );
+        toast.promise(
+            updateCourse({ id: courseId, course: formData }).unwrap(),
+            {
+                loading: 'Updating Course...',
+                success: (data) => {
+                    toggleEdit();
+                    router.refresh();
+                    return "Course updated"
+                },
+                error: (error) => {
+                    console.log("Course updation error");
+                    console.log(error);
+                    return "Something went wrong"
+                },
+            }
+        );
 
 
     }
@@ -117,10 +106,6 @@ const ImageForm = ({ initialData, courseId }: ImageFormProps) => {
 
     const image = form.watch('image');
     const imageUrl = image ? URL.createObjectURL(image) : "";
-    console.log(imageUrl);
-
-    console.log(isValid)
-    console.log(form.formState.errors)
 
     return (
         <div className="mt-6 border bg-slate-100 rounded-md p-4">
