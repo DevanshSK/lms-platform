@@ -27,6 +27,7 @@ import { combineReducers } from "@reduxjs/toolkit";
  * @returns The code is returning a persisted reducer.
  */
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
+import { chapterApi } from "./features/chapters/chapterApiSlice";
 
 const createNoopStorage = () => {
   return {
@@ -59,6 +60,7 @@ const combinedReducer = combineReducers({
     [authApi.reducerPath]: authApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
     [courseApi.reducerPath]: courseApi.reducer,
+    [chapterApi.reducerPath]: chapterApi.reducer,
     [categoryApi.reducerPath]: categoryApi.reducer
 })
 
@@ -80,7 +82,7 @@ export const makeStore = () => {
             serializableCheck: {
                 ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
             }
-        }).concat([authApi.middleware, userApi.middleware, courseApi.middleware, categoryApi.middleware]),
+        }).concat([authApi.middleware, userApi.middleware, courseApi.middleware, categoryApi.middleware, chapterApi.middleware]),
         devTools: true
     })
 }

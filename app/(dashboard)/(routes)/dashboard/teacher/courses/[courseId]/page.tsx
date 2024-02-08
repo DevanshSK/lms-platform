@@ -1,7 +1,7 @@
 "use client"
 import { IconBadge } from "@/components/icon-badge";
 import { useGetCourseQuery } from "@/redux/features/courses/courseApiSlice";
-import { LayoutDashboard } from "lucide-react";
+import { LayoutDashboard, ListChecks } from "lucide-react";
 import { redirect } from "next/navigation";
 import TitleForm from "./_components/title-form";
 import DescriptionForm from "./_components/description-form";
@@ -10,6 +10,7 @@ import CourseCodeForm from "./_components/course-code-form";
 import ImageForm from "./_components/image-form";
 import { useGetCategoriesQuery } from "@/redux/features/category/categoryApiSlice";
 import CategoryForm from "./_components/category-form";
+import ChaptersForm from "./_components/chapters-form";
 
 
 const CourseIdPage = ({params} : {params: {courseId: number}}) => {
@@ -68,6 +69,20 @@ const CourseIdPage = ({params} : {params: {courseId: number}}) => {
                     <ImageForm initialData={course} courseId={course.id} />
                     <CategoryForm initialData={course} courseId={course.id} options={mappedCategories} />
                     
+                </div>
+
+                <div className="space-y-6">
+                    <div>
+                        <div className="flex items-center gap-x-2">
+                            <IconBadge icon={ListChecks}  />
+                            <h2 className="text-xl">
+                                Course chapters
+                            </h2>
+                        </div>
+
+                        <ChaptersForm initialData={course} courseId={course.id} />
+                        
+                    </div>
                 </div>
             </div>
         </div> 
