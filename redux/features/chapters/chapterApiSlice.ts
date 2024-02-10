@@ -33,6 +33,10 @@ export const chapterApi = createApi({
                     : [{ type: 'Chapters', id: 'LIST' }],
 
         }),
+        getSingleChapter: builder.query<IChapterResponse, number>({
+            query: (chapterId) => `/chapter/${chapterId}`,
+            providesTags: (result, error, id) => [{ type: 'Chapters', id }]
+        }),
         updateChapter: builder.mutation<IChapterResponse, { courseId: number, chapterId: number, chapter: FormData }>({
             query: ({ courseId, chapterId, chapter }) => ({
                 url: `/chapter/course/${courseId}/update/${chapterId}`,
@@ -50,4 +54,4 @@ export const chapterApi = createApi({
     })
 })
 
-export const { useCreateChapterMutation, useGetCoursesChaptersQuery, useUpdateChapterMutation } = chapterApi;
+export const { useCreateChapterMutation, useGetCoursesChaptersQuery, useGetSingleChapterQuery, useUpdateChapterMutation } = chapterApi;
