@@ -98,9 +98,6 @@ const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
             console.log("CHAPTER REORDER")
             console.log(updateData)
 
-            // await axios.put(`/api/courses/${courseId}/chapters/reorder`, {
-            //     list: updateData
-            // })
 
             updateData.forEach(async item => {
                 const updateFormData = new FormData();
@@ -123,7 +120,7 @@ const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
     }
 
     const onEdit = (id: number) => {
-        router.push(`/teacher/courses/${courseId}/chapters/${id}`);
+        router.push(`/dashboard/teacher/courses/${courseId}/chapters/${id}`);
     }
 
     return (
