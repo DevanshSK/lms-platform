@@ -2,11 +2,12 @@
 
 import { IconBadge } from "@/components/icon-badge";
 import { useGetSingleChapterQuery } from "@/redux/features/chapters/chapterApiSlice";
-import { ArrowLeft, LayoutDashboard } from "lucide-react";
+import { ArrowLeft, LayoutDashboard, Video } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import ChapterTitleForm from "./_components/chapter-title-form";
 import ChapterDescriptionForm from "./_components/chapter-description-form";
+import ChapterVideoForm from "./_components/chapter-video-form";
 
 const ChapterIdPage = ({params}: {
     params: {
@@ -73,7 +74,17 @@ const ChapterIdPage = ({params}: {
                         />
                     </div>
                 </div>
-
+                <div>
+                    <div className="flex items-center gap-x-2">
+                        <IconBadge icon={Video} />
+                        <h2 className="text-xl">Add a video</h2>
+                    </div>
+                    <ChapterVideoForm 
+                        initialData={chapter}
+                        courseId={params.courseId}
+                        chapterId={params.chapterId}
+                    />
+                </div>
 
             </div>
 

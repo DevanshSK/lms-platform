@@ -83,3 +83,5 @@ html, body, :root{
 .ql-container{
   font-size: 16px !important;
 }
+
+@import "~video-react/dist/video-react.css";

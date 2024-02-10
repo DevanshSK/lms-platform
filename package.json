@@ -35,9 +35,12 @@
     "react-hot-toast": "^2.4.1",
     "react-quill": "^2.0.0",
     "react-redux": "^9.0.4",
+    "redux": "^5.0.1",
     "redux-persist": "^6.0.0",
+    "scss": "^0.2.4",
     "tailwind-merge": "^2.2.0",
     "tailwindcss-animate": "^1.0.7",
+    "video-react": "^0.16.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
@@ -45,6 +48,7 @@
     "@types/react": "18.2.47",
     "@types/react-dom": "18.2.18",
     "@types/redux-persist": "^4.3.1",
+    "@types/video-react": "^0.15.5",
     "autoprefixer": "10.4.16",
     "eslint": "8.56.0",
     "eslint-config-next": "14.0.4",
