@@ -23,7 +23,7 @@ const NavbarRoutes = () => {
         </Button>
         </Link>
       ) : (
-        <Link href="/dashboard/teacher/">
+        <Link href="/dashboard/teacher/courses">
           <Button size="sm" variant="ghost">Teacher mode</Button></Link>
       )}
       <UserNav />
