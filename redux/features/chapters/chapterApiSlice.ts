@@ -51,7 +51,14 @@ export const chapterApi = createApi({
                 ] :
                 [   { type: "Chapters", id: "LIST" }   ],
         }),
+        deleteChapter: builder.mutation<void, number>({
+            query: (chapterId) => ({
+                url: `/chapter/${chapterId}`,
+                method: "DELETE",
+            }),
+            invalidatesTags: [{ type: 'Chapters', id: 'LIST' }],
+        })
     })
 })
 
-export const { useCreateChapterMutation, useGetCoursesChaptersQuery, useGetSingleChapterQuery, useUpdateChapterMutation } = chapterApi;
+export const { useCreateChapterMutation, useGetCoursesChaptersQuery, useGetSingleChapterQuery, useUpdateChapterMutation, useDeleteChapterMutation } = chapterApi;

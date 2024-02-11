@@ -11,7 +11,7 @@ import { useDropzone } from "react-dropzone";
 import FormData from "form-data";
 
 // import "node_modules/video-react/dist/video-react.css";
-import {Player} from "video-react";
+import {BigPlayButton, Player} from "video-react";
 
 import {
     Form,
@@ -135,7 +135,9 @@ const ChapterVideoForm = ({ initialData, courseId, chapterId }: ChapterVideoForm
                             preload="auto"
                             startTime={0}
                             fluid
-                        />
+                        >
+                            <BigPlayButton position="center" />
+                        </Player >
                     </div>
                 )
             )}
