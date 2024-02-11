@@ -11,27 +11,27 @@ import ImageForm from "./_components/image-form";
 import { useGetCategoriesQuery } from "@/redux/features/category/categoryApiSlice";
 import CategoryForm from "./_components/category-form";
 import ChaptersForm from "./_components/chapters-form";
+import CourseActions from "./_components/course-actions";
+import { Banner } from "@/components/banner";
 
 
-const CourseIdPage = ({params} : {params: {courseId: number}}) => {
+const CourseIdPage = ({ params }: { params: { courseId: number } }) => {
     const { data: course, isLoading: isCourseLoading } = useGetCourseQuery(params.courseId);
-    const {data: categories, isLoading: isCategoriesLoading} = useGetCategoriesQuery();
+    const { data: categories, isLoading: isCategoriesLoading } = useGetCategoriesQuery();
 
-    if(isCourseLoading || isCategoriesLoading) {
+    if (isCourseLoading || isCategoriesLoading) {
         return <p className='text-center p-5 animate-pulse font-semibold'>Loading....</p>
     }
 
-    const mappedCategories = categories?.map( category => ({
+    const mappedCategories = categories?.map(category => ({
         label: category.cate_name, value: category.id
     }))
 
 
-    if(!course){
+    if (!course) {
         return redirect("/dashboard/teacher")
     }
 
-    // console.log("Course data")
-    // console.table(course);
 
     const requiredFields = [
         course.course_code,
@@ -44,49 +44,63 @@ const CourseIdPage = ({params} : {params: {courseId: number}}) => {
     const totalFields = requiredFields.length;
     const completedFields = requiredFields.filter(Boolean).length;
     const completionText = `(${completedFields}/${totalFields})`;
-    
 
-    return ( 
-        <div className="p-6">
-            <div className="flex items-center justify-between">
-                <div className="flex flex-col gap-y-2">
-                    <h1 className="text-2xl font-medium">Course Setup</h1>
-                    <span>Complete all fields {completionText}</span>
-                </div>
-            </div>
+    const isComplete = requiredFields.every(Boolean);
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
-                <div>
-                    <div className="flex items-center gap-x-2">
-                        <IconBadge icon={LayoutDashboard} />
-                        <h2 className="text-xl">Customise your course</h2>
+
+    return (
+        <>
+            {!course.is_published && (
+                <Banner 
+                    label="This course is not published. It will not be visible to students."
+                />
+            )}
+            <div className="p-6">
+                <div className="flex items-center justify-between">
+                    <div className="flex flex-col gap-y-2">
+                        <h1 className="text-2xl font-medium">Course Setup</h1>
+                        <span>Complete all fields {completionText}</span>
                     </div>
-
-                    <TitleForm initialData={course} courseId={course.id} />
-                    <DescriptionForm initialData={course} courseId={course.id} />
-                    <TeacherForm initialData={course} courseId={course.id} />
-                    <CourseCodeForm initialData={course} courseId={course.id} />
-                    <ImageForm initialData={course} courseId={course.id} />
-                    <CategoryForm initialData={course} courseId={course.id} options={mappedCategories} />
-                    
+                    <CourseActions
+                        disabled={!isComplete}
+                        courseId={params.courseId}
+                        isPublished={course.is_published}
+                    />
                 </div>
 
-                <div className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
                     <div>
                         <div className="flex items-center gap-x-2">
-                            <IconBadge icon={ListChecks}  />
-                            <h2 className="text-xl">
-                                Course chapters
-                            </h2>
+                            <IconBadge icon={LayoutDashboard} />
+                            <h2 className="text-xl">Customise your course</h2>
                         </div>
 
-                        <ChaptersForm initialData={course} courseId={course.id} />
-                        
+                        <TitleForm initialData={course} courseId={course.id} />
+                        <DescriptionForm initialData={course} courseId={course.id} />
+                        <TeacherForm initialData={course} courseId={course.id} />
+                        <CourseCodeForm initialData={course} courseId={course.id} />
+                        <ImageForm initialData={course} courseId={course.id} />
+                        <CategoryForm initialData={course} courseId={course.id} options={mappedCategories} />
+
+                    </div>
+
+                    <div className="space-y-6">
+                        <div>
+                            <div className="flex items-center gap-x-2">
+                                <IconBadge icon={ListChecks} />
+                                <h2 className="text-xl">
+                                    Course chapters
+                                </h2>
+                            </div>
+
+                            <ChaptersForm initialData={course} courseId={course.id} />
+
+                        </div>
                     </div>
                 </div>
             </div>
-        </div> 
+        </>
     );
 }
- 
+
 export default CourseIdPage;

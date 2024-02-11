@@ -53,7 +53,17 @@ export const courseApi = createApi({
                 ] :
                 [   { type: "Courses", id: "LIST" }   ],
         }),
+        deleteCourse: builder.mutation<void, number>({
+            query: (courseId) => ({
+                url: `/course/delete`,
+                method: "DELETE",
+                params: {
+                    cid: courseId
+                }
+            }),
+            invalidatesTags: [{ type: 'Courses', id: 'LIST' }],
+        })
     })
 })
 
-export const { useCreateCourseMutation, useGetAllCoursesQuery, useGetCourseQuery, useLazyGetCourseQuery, useUpdateCourseMutation } = courseApi;
+export const { useCreateCourseMutation, useGetAllCoursesQuery, useGetCourseQuery, useLazyGetCourseQuery, useUpdateCourseMutation, useDeleteCourseMutation } = courseApi;
