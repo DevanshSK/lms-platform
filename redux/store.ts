@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import authReducer from './features/auth/authSlice';
 import userReducer from "./features/user/userSlice";
+import confettiReducer from "./features/confetti/confettiSlice";
 
 import { authApi } from "./features/auth/authApiSlice";
 import { userApi } from "./features/user/userApiSlice";
@@ -56,6 +57,7 @@ const persistConfig = {
 
 const combinedReducer = combineReducers({
     auth: authReducer,
+    confetti: confettiReducer,
     userState: userReducer,
     [authApi.reducerPath]: authApi.reducer,
     [userApi.reducerPath]: userApi.reducer,

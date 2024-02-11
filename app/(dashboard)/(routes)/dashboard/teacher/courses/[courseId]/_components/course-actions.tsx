@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import { ConfirmModal } from "@/components/modals/confirm-modal";
 
 import { useDeleteCourseMutation, useUpdateCourseMutation } from "@/redux/features/courses/courseApiSlice";
+import { useAppDispatch } from "@/redux/hooks";
+import { onOpen } from "@/redux/features/confetti/confettiSlice";
 
 interface CourseActionsProps{
     disabled: boolean;
@@ -21,12 +23,14 @@ const CourseActions = ({
     isPublished
 }: CourseActionsProps) => {
     const router = useRouter();
+    const dispatch = useAppDispatch();
     const [updateCourse, {isLoading: isUpdateLoading}] = useUpdateCourseMutation();
     const [deleteCourse, {isLoading: isDeleteLoading}] = useDeleteCourseMutation(); 
 
     const onClick = () => {
         const formData = new FormData();
         let message: string;
+        let showConfetti = false;
         let loadingMessage:string;
         if(isPublished){
             // UnPublish the chapter
@@ -38,6 +42,7 @@ const CourseActions = ({
             // Publish the chapter
             formData.append("is_published", true);
             message = "Course published";
+            showConfetti = true;
             loadingMessage = "Publishing course..";
         }
 
@@ -47,6 +52,9 @@ const CourseActions = ({
                 loading: loadingMessage,
                 success: (data) => {
                     router.refresh();
+                    if(showConfetti){
+                        dispatch(onOpen());
+                    }
                     return message;
                 },
                 error: (error) => {
