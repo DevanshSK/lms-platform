@@ -26,7 +26,7 @@ const teacherRoutes = [
     },
     {
         icon: BarChart,
-        label: "Create Category",
+        label: "Categories",
         href: "/dashboard/teacher/category/create"
     }
 ]
