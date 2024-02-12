@@ -5,6 +5,7 @@ import UserNav from "./user-nav";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
+import SearchInput from "../search-input";
 
 const NavbarRoutes = () => {
 
@@ -12,22 +13,30 @@ const NavbarRoutes = () => {
 
   const isTecherPage = pathname?.startsWith("/dashboard/teacher")
   const isPlayerPage = pathname?.startsWith("/dashboard/chapter")
+  const isSearchPage = pathname === "/dashboard/search";
 
   return (
-    <div className="flex gap-x-2 ml-auto">
-      {isTecherPage || isPlayerPage ? (
-        <Link href="/dashboard">
-        <Button size="sm" variant="ghost">
-          <LogOut className="h-4 w-4 mr-2" />
-          Exit
-        </Button>
-        </Link>
-      ) : (
-        <Link href="/dashboard/teacher/courses">
-          <Button size="sm" variant="ghost">Teacher mode</Button></Link>
+    <>
+      {isSearchPage && (
+        <div className="hidden md:block">
+          <SearchInput />
+        </div>
       )}
-      <UserNav />
-    </div>
+      <div className="flex gap-x-2 ml-auto">
+        {isTecherPage || isPlayerPage ? (
+          <Link href="/dashboard">
+            <Button size="sm" variant="ghost">
+              <LogOut className="h-4 w-4 mr-2" />
+              Exit
+            </Button>
+          </Link>
+        ) : (
+          <Link href="/dashboard/teacher/courses">
+            <Button size="sm" variant="ghost">Teacher mode</Button></Link>
+        )}
+        <UserNav />
+      </div>
+    </>
   )
 }
 
