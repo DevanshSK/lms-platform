@@ -30,7 +30,6 @@ const CourseCard = ({
 }: CourseCardProps) => {
   const { data: chapters, isLoading } = useGetCoursesChaptersQuery(id);
 
-  console.log(chapters);
   return (
     <Link href={`/courses/${id}`}>
       <div className="group hover:shadow-sm transition overflow-hidden border rounded-lg  h-full">

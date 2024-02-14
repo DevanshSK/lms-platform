@@ -110,13 +110,13 @@ const ChapterAttachmentForm = ({ initialData, courseId, chapterId }: ChapterAtta
                     {isEditing && (
                         <>Cancel</>
                     )}
-                    {!isEditing && !initialData.pdf_url && (
+                    {!isEditing && !initialData.resource_url && (
                         <>
                             <PlusCircle className="h-4 w-4 mr-2" />
                             Add attachment
                         </>
                     )}
-                    {!isEditing && initialData.pdf_url && (
+                    {!isEditing && initialData.resource_url && (
                         <>
                             <Pencil className="h-4 w-4 mr-2" />
                             Edit attachment
@@ -126,16 +126,16 @@ const ChapterAttachmentForm = ({ initialData, courseId, chapterId }: ChapterAtta
             </div>
 
             {!isEditing && (
-                !initialData.pdf_url ? (
+                !initialData.resource_url ? (
                     <>No chapter attachments</>
                 ) : (
                     <div className="relative mt-2">
                         <div className="flex items-center p-3 bg-blue-100 border-blue-200 text-blue-700 rounded-md">
                             <FileIcon className="h-4 w-4 mr-2 flex-shrink-0" />
                             <p className="text-xs line-clamp-1">
-                                {initialData.pdf_url}
+                                {initialData.resource_url}
                             </p>
-                            <Link href={initialData.pdf_url} download target="_blank" >
+                            <Link href={initialData.resource_url} download target="_blank" >
                                 <Download className="h-4 w-4" />
                             </Link>
                         </div>

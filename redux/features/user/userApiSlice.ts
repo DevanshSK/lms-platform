@@ -1,6 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { logoutUser, setUser } from "./userSlice";
-import { IUser } from "@/redux/types";
+import { IEnrollment, IUser } from "@/redux/types";
 import baseQuery from "@/redux/services/apiSlice";
 import { logout } from "../auth/authSlice";
 
@@ -25,8 +25,21 @@ export const userApi = createApi({
                 }
             },
             
+        }),
+        getEnrollments: builder.query<IEnrollment[], void>({
+            query: () => "/user/me/courses",
+            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+                try {
+                    const { data } = await queryFulfilled;
+                    // console.log(data)
+                } catch (error) {
+                    console.log("Error fetching current user", error);
+                    dispatch(logout());
+                    dispatch(logoutUser());
+                }
+            },
         })
     })
 })
 
-export const { useGetUserQuery } = userApi;
+export const { useGetUserQuery, useGetEnrollmentsQuery } = userApi;

@@ -31,8 +31,7 @@ const SearchPage = ({
         return <p className='text-center p-5 font-semibold'>Oops, looks like something went wrong....</p>
     }
 
-    console.log(searchParams);
-    console.log(courses);
+    
 
 
     return (

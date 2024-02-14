@@ -14,12 +14,10 @@ const NavbarRoutes = () => {
   const pathname = usePathname();
 
   const isTecherPage = pathname?.startsWith("/dashboard/teacher")
-  const isPlayerPage = pathname?.startsWith("/dashboard/chapter")
+  const isPlayerPage = pathname?.startsWith("/courses")
   const isSearchPage = pathname === "/dashboard/search";
 
-  console.log(user?.role);
   const isAdmin = !!(user?.role === "admin");
-  console.log(isAdmin)
 
   if(!isAdmin && isTecherPage){
     redirect("/dashboard/");
@@ -41,7 +39,7 @@ const NavbarRoutes = () => {
             </Button>
           </Link>
         )}
-        {isAdmin && !isTecherPage && (
+        {isAdmin && !isTecherPage && !isPlayerPage && (
           <Link href="/dashboard/teacher/courses">
             <Button size="sm" variant="ghost">Teacher mode</Button></Link>
         )}

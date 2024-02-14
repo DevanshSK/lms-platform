@@ -78,8 +78,15 @@ export interface IChapterResponse{
     description: string;
     chapter_no: number;
     video_url: string;
-    pdf_url: string;
+    resource_url: string;
     is_published: true;
     course_id: number;
     created_at: string;
+}
+
+// Enrollments types
+export interface IEnrollment{
+    user_id: number;
+    course_id: number;
+    enroll_at: string;
 }
