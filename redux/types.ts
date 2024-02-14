@@ -61,6 +61,9 @@ export interface ICourseGetResponse{
     enrollments: number;
 }
 
+export interface ICourse extends ICourseResponse {
+    enrollments: number;
+}
 
 // Category Types
 export interface ICategoryResponse{

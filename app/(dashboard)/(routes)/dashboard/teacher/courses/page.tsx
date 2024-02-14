@@ -13,20 +13,14 @@ const CoursesPage = () => {
     }
 
     console.log(courses);
-    const filteredCourses = courses?.map(course => {
-        const {Course, enrollments} = course;
-        return {
-            ...Course,
-            enrollments
-        }
-    })
+    
 
 
     return (
         <div className="p-6">
             <DataTable 
                 columns={columns}
-                data={filteredCourses || []}
+                data={courses || []}
             />
         </div>
     )

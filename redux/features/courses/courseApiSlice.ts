@@ -1,7 +1,8 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import FormData from "form-data";
-import { ICourseGetResponse, ICourseResponse } from "@/redux/types";
+import { ICourse, ICourseGetResponse, ICourseResponse } from "@/redux/types";
 import baseQuery from "@/redux/services/apiSlice";
+
 
 export const courseApi = createApi({
     reducerPath: "courseApi",
@@ -17,13 +18,12 @@ export const courseApi = createApi({
             }),
             invalidatesTags: [{ type: "Courses", id: "LIST" }],
         }),
-        getAllCourses: builder.query<ICourseGetResponse[], void>({
+        getAllCourses: builder.query<ICourse[], void>({
             query: () => "/course",
             providesTags: (result) =>
                 result
                     ? [
-                        ...result.map(({ Course: course }) => {
-                            const { id } = course;
+                        ...result.map(({ id }) => {
                             return {
                                 type: 'Courses' as const,
                                 id,
@@ -32,7 +32,41 @@ export const courseApi = createApi({
                         { type: 'Courses', id: 'LIST' },
                     ]
                     : [{ type: 'Courses', id: 'LIST' }],
+            transformResponse: (response: ICourseGetResponse[]) => {
+                return response.map(({ Course, enrollments }) => ({
+                    ...Course,
+                    enrollments
+                }))
+            },
 
+        }),
+        getAllCoursesWithParams: builder.query<ICourse[], { title?: string; categoryId?: number }>({
+            query: ({ title, categoryId }) => ({
+                url: "/course",
+                method: "GET",
+                params: {
+                    q: title,
+                    cate: categoryId,
+                }
+            }),
+            providesTags: (result) =>
+                result
+                    ? [
+                        ...result.map(({ id }) => {
+                            return {
+                                type: 'Courses' as const,
+                                id,
+                            }
+                        }),
+                        { type: 'Courses', id: 'LIST' },
+                    ]
+                    : [{ type: 'Courses', id: 'LIST' }],
+            transformResponse: (response: ICourseGetResponse[]) => {
+                return response.map(({ Course, enrollments }) => ({
+                    ...Course,
+                    enrollments
+                })).filter( course => course.is_published === true)
+            },
         }),
         getCourse: builder.query<ICourseResponse, number>({
             query: (id) => `/course/${id}`,
@@ -46,12 +80,12 @@ export const courseApi = createApi({
                 body: course,
                 formData: true
             }),
-            invalidatesTags: (result, error, {id}) => result ?
+            invalidatesTags: (result, error, { id }) => result ?
                 [
                     { type: "Courses", id },
                     { type: "Courses", id: "LIST" }
                 ] :
-                [   { type: "Courses", id: "LIST" }   ],
+                [{ type: "Courses", id: "LIST" }],
         }),
         deleteCourse: builder.mutation<void, number>({
             query: (courseId) => ({
@@ -66,4 +100,4 @@ export const courseApi = createApi({
     })
 })
 
-export const { useCreateCourseMutation, useGetAllCoursesQuery, useGetCourseQuery, useLazyGetCourseQuery, useUpdateCourseMutation, useDeleteCourseMutation } = courseApi;
+export const { useCreateCourseMutation, useGetAllCoursesWithParamsQuery, useGetAllCoursesQuery, useGetCourseQuery, useLazyGetCourseQuery, useUpdateCourseMutation, useDeleteCourseMutation } = courseApi;

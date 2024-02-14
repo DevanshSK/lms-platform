@@ -9,6 +9,7 @@ import {  selectToken, AuthState } from "../features/auth/authSlice";
 import { Mutex } from "async-mutex";
 import { RootState } from "../store";
 import { IRefreshResponse } from "../types";
+import { useDispatch } from "react-redux";
 
 // /* The code snippet is defining an interface `IRefreshResponse` which represents the shape of the
 // response object received when refreshing the access token. It has two properties: `access_token` of
@@ -24,7 +25,7 @@ const baseQuery = fetchBaseQuery({
     // credentials: "same-origin",
     prepareHeaders: (headers, { getState }) => {
         const token = selectToken(getState() as RootState);
-        // headers.set("Content-Type", "application/json");
+        
         if (token) {
             headers.set('Authorization', `Bearer ${token}`);
         }

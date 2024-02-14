@@ -65,7 +65,7 @@ export const columns: ColumnDef<CourseData>[] = [
                 "bg-slate-500",
                 (enrollments !== 0) && "bg-sky-700"
             )}>
-                {enrollments}
+                {enrollments} Students
             </Badge>
         }
     },

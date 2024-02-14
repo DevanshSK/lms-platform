@@ -1,7 +1,8 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { setUser } from "./userSlice";
+import { logoutUser, setUser } from "./userSlice";
 import { IUser } from "@/redux/types";
 import baseQuery from "@/redux/services/apiSlice";
+import { logout } from "../auth/authSlice";
 
 export const userApi = createApi({
     reducerPath: "userApi",
@@ -18,9 +19,12 @@ export const userApi = createApi({
                     // console.log(data)
                     dispatch(setUser(data));
                 } catch (error) {
-                    console.log("Error fetching current user", error)
+                    console.log("Error fetching current user", error);
+                    dispatch(logout());
+                    dispatch(logoutUser());
                 }
             },
+            
         })
     })
 })
