@@ -1,8 +1,11 @@
+import UserNav from '@/components/navbar/user-nav'
 import React from 'react'
 
 const HomePage = () => {
   return (
-    <div>This is my homepage</div>
+    <div>This is my homepage
+      <UserNav />
+    </div>
   )
 }
 
