@@ -15,7 +15,7 @@ const NavbarRoutes = () => {
 
   const isTecherPage = pathname?.startsWith("/dashboard/teacher")
   const isPlayerPage = pathname?.startsWith("/courses")
-  const isSearchPage = pathname === "/dashboard/search";
+  const isSearchPage = pathname === "/dashboard";
 
   const isAdmin = !!(user?.role === "admin");
 

@@ -7,6 +7,8 @@ import SearchInput from '@/components/search-input';
 import { useSearchParams } from 'next/navigation';
 import { useGetAllCoursesWithParamsQuery } from '@/redux/features/courses/courseApiSlice';
 import CoursesList from '@/components/courses-list';
+import { useGetEnrollmentsQuery } from '@/redux/features/user/userApiSlice';
+import { Separator } from '@/components/ui/separator';
 
 interface SearchPageProps {
     searchParams: {
@@ -19,8 +21,8 @@ const SearchPage = ({
     searchParams
 }: SearchPageProps) => {
     const params = useSearchParams();
-    const { data: categories, isLoading: isCategoriesLoading, isError, error } = useGetCategoriesQuery();
-    const { data: courses, isLoading: isCourseLoading } = useGetAllCoursesWithParamsQuery({ title: searchParams.title, categoryId: searchParams.categoryId });
+    const { data: categories=[], isLoading: isCategoriesLoading, isError, error } = useGetCategoriesQuery();
+    const { data: courses = [], isLoading: isCourseLoading } = useGetAllCoursesWithParamsQuery({ title: searchParams.title, categoryId: searchParams.categoryId });
 
 
     if (isCourseLoading || isCategoriesLoading) {
@@ -31,23 +33,23 @@ const SearchPage = ({
         return <p className='text-center p-5 font-semibold'>Oops, looks like something went wrong....</p>
     }
 
-    
 
 
     return (
-        <>
-            <div className='px-6 pt-6 md:hidden md:mb-0 block'>
+        <div className='container mb-16'>
+            <div className='px-6 pt-6 md:mb-0 block'>
                 <SearchInput />
             </div>
             <div className='p-6'>
                 <Categories
-                    items={categories || []}
+                    items={categories}
                 />
-                <CoursesList 
-                    items={courses || []}
+                <CoursesList
+                    items={courses}
                 />
             </div>
-        </>
+            <Separator className='mb-5 mt-10' />
+        </div>
     )
 }
 
