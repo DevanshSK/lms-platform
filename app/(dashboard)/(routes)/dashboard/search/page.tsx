@@ -2,7 +2,7 @@
 
 import { useGetCategoriesQuery } from '@/redux/features/category/categoryApiSlice';
 import React from 'react'
-import Categories from './_components/categories';
+import Categories from '@/components/categories';
 import SearchInput from '@/components/search-input';
 import { useSearchParams } from 'next/navigation';
 import { useGetAllCoursesWithParamsQuery } from '@/redux/features/courses/courseApiSlice';
