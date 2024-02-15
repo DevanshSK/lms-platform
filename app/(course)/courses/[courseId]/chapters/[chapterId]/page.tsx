@@ -10,6 +10,9 @@ import { useAppSelector } from "@/redux/hooks";
 import { redirect } from "next/navigation";
 import VideoPlayer from "./_components/video-player";
 import { File } from "lucide-react";
+import CourseEnrollButton from "./_components/course-enroll-button";
+import { Button } from "@/components/ui/button";
+import CourseProgressButton from "./_components/course-progress-button";
 
 
 const ChapterIdPage = ({ params }: {
@@ -23,7 +26,7 @@ const ChapterIdPage = ({ params }: {
         return <p className='text-center p-5 animate-pulse font-semibold'>Hang on tight, this may take a while....</p>
     }
 
-    if(!user || !chapters){
+    if(!chapters){
         redirect('/dashboard/search');
     }
 
@@ -33,13 +36,26 @@ const ChapterIdPage = ({ params }: {
 
     const sortedChapters = chapters.toSorted((a,b) => a.chapter_no - b.chapter_no);
     const currentChapterIndex = sortedChapters.findIndex(c => +c.id === +params.chapterId);
-    const currentChapter = sortedChapters[currentChapterIndex]
-    const nextChapterIndex = currentChapterIndex + 1 < sortedChapters.length ? currentChapterIndex+1 : 0;
-    const isLastChapter = currentChapterIndex+1 < sortedChapters.length;
 
-    console.log("Current Chapter",currentChapterIndex);
-    console.log("Current Chapter",currentChapter);
+    let nextUrl : string;
+    let isLastChapter : boolean = false;
+
+    const nextChapterIndex = currentChapterIndex + 1 < sortedChapters.length ? currentChapterIndex+1 : -1;
+    if(nextChapterIndex === -1){
+      nextUrl = `/dashboard`;
+      isLastChapter =  true;
+    } else{
+      const nextChapter = sortedChapters[nextChapterIndex];
+      nextUrl = `/courses/${params.courseId}/chapters/${nextChapter.id}`; 
+    }
+    const currentChapter = sortedChapters[currentChapterIndex]
+    // const nextChapterIndex = currentChapterIndex + 1 < sortedChapters.length ? currentChapterIndex+1 : -1;
+    // const isLastChapter = currentChapterIndex+1 < sortedChapters.length;
+
+    // console.log("Current Chapter",currentChapterIndex);
+    // console.log("Current Chapter",currentChapter);
     console.log("Next chapter ",nextChapterIndex);
+    console.log("Next URL",nextUrl);
 
     return (
         <div>
@@ -55,7 +71,6 @@ const ChapterIdPage = ({ params }: {
               chapterId={params.chapterId}
               title={currentChapter.title}
               courseId={params.courseId}
-              nextChapterId={sortedChapters[nextChapterIndex].id}
               isLocked={!isEnrolled}
               videoUrl={currentChapter.video_url}
             />
@@ -65,19 +80,16 @@ const ChapterIdPage = ({ params }: {
               <h2 className="text-2xl font-semibold mb-2">
                 {currentChapter.title}
               </h2>
-              {/* {purchase ? (
+              {isEnrolled ? (
                 <CourseProgressButton
-                  chapterId={params.chapterId}
-                  courseId={params.courseId}
-                  nextChapterId={nextChapter?.id}
-                  isCompleted={!!userProgress?.isCompleted}
+                  nextUrl={nextUrl}
+                  isLastChapter={isLastChapter}
                 />
               ) : (
                 <CourseEnrollButton
                   courseId={params.courseId}
-                  price={course.price!}
                 />
-              )} */}
+              )}
             </div>
             <Separator />
             <div>
