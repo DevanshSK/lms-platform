@@ -2,8 +2,8 @@
 export const NAV_LINKS = [
     { href: '/', key: 'home', label: 'Home' },
     { href: '/', key: 'how_addlearn_work', label: 'How Add Learn Work?' },
-    { href: '/', key: 'aboutus', label: 'AboutUs' },
-    { href: '/', key: 'courses ', label: 'Courses' },
+    { href: '/about', key: 'aboutus', label: 'AboutUs' },
+    { href: '/courses', key: 'courses ', label: 'Courses' },
     { href: '/', key: 'contact_us', label: 'Contact Us' },
   ];
   

@@ -13,25 +13,21 @@ import {
 } from "../ui/dropdown-menu";
 import { useGetUserQuery } from "@/redux/features/user/userApiSlice";
 import { useRouter } from "next/navigation";
+import { useAppSelector } from "@/redux/hooks";
+import { selectUser } from "@/redux/features/user/userSlice";
 
 
 const UserNav = () => {
 
   const { handleLogout } = useLogin();
-  const { data: user, isLoading } = useGetUserQuery();
+  const user = useAppSelector(selectUser);
   const router = useRouter();
 
-  if (isLoading) {
-    return null;
-  }
 
-  return (<DropdownMenu>
+  return user ? (<DropdownMenu>
     <DropdownMenuTrigger asChild>
-      <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-        <Avatar className="h-8 w-8">
-          <AvatarImage src="/avatars/01.png" alt="@shadcn" />
-          <AvatarFallback>{user?.name.substring(0, 2)}</AvatarFallback>
-        </Avatar>
+      <Button variant="default" className="relative rounded-full">
+        {user?.name || "User"}
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent className="w-56" align="end" forceMount>
@@ -46,14 +42,12 @@ const UserNav = () => {
       </DropdownMenuLabel>
       <DropdownMenuSeparator />
 
-      {user && (
-        <DropdownMenuItem
-          onClick={() => router.push('/dashboard')}
-          className="font-normal"
-        >
-          Dashboard
-        </DropdownMenuItem>
-      )}
+      <DropdownMenuItem
+        onClick={() => router.push('/dashboard')}
+        className="font-normal"
+      >
+        Dashboard
+      </DropdownMenuItem>
       {user?.role === "admin" && (
         <>
           <DropdownMenuSeparator />
@@ -65,34 +59,16 @@ const UserNav = () => {
           </DropdownMenuItem>
         </>
       )}
-      {/* <DropdownMenuSeparator />
-          <DropdownMenuGroup>
-            <DropdownMenuItem>
-              Profile
-            </DropdownMenuItem>
-            
-            <DropdownMenuItem>
-              Settings
-            </DropdownMenuItem>
-            
-    </DropdownMenuGroup> */}
+
       <DropdownMenuSeparator />
-      {user ? (
-        <DropdownMenuItem onClick={() => handleLogout()}>
-          Log out
-        </DropdownMenuItem>
-      ) : (
-        <>
-          <DropdownMenuItem onClick={() => router.push("/sign-in")}>
-            Sign-In
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => router.push("/sign-up")}>
-            Sign-Up
-          </DropdownMenuItem>
-        </>
-      )}
+      <DropdownMenuItem onClick={() => handleLogout()}>
+        Log out
+      </DropdownMenuItem>
+
     </DropdownMenuContent>
-  </DropdownMenu>);
+  </DropdownMenu>) : (
+    <Button onClick={() => router.push("/sign-in")}>Sign-in</Button>
+  );
 }
 
 export default UserNav;
