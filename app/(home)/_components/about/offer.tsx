@@ -44,7 +44,7 @@ const Offer = () => {
           </p>
           <div className="flex flex-wrap justify-between gap-5 lg:gap-10">
             <h2 className="bold-40 lg:bold-64 xl:max-w-[600px]" >Distraction Free Study thrugh LMS</h2>
-            <p className="regular-16 text-gray-30 xl:max-w-[520px]">In today's fast-paced world, staying focused on learning can be a challenge. That's why our Learning Management System (LMS) is committed to providing you with a distraction-free environment, allowing you to fully immerse yourself in your educational journey. Don't let distractions derail your learning goals. Join us in our distraction-free learning environment and unlock your full potential today!</p>
+            <p className="regular-16 text-gray-30 xl:max-w-[520px]">In today&apos;s fast-paced world, staying focused on learning can be a challenge. That&apos;s why our Learning Management System (LMS) is committed to providing you with a distraction-free environment, allowing you to fully immerse yourself in your educational journey. Don&apos;t let distractions derail your learning goals. Join us in our distraction-free learning environment and unlock your full potential today!</p>
           </div>
       </div>
     </section>
