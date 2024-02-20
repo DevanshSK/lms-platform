@@ -205,6 +205,9 @@ body,
   .hero-map {
     @apply absolute right-0 top-0 h-screen w-screen bg-pattern-2 bg-cover bg-center md:-right-28 xl:-top-60;
   }
+  .hero-map-1 {
+    @apply right-0 top-0 h-screen w-screen bg-pattern-2 bg-cover bg-center md:-right-28 xl:-top-60;
+  }
 
   /* Camp */
   .camp-quote {
@@ -219,6 +222,14 @@ body,
   /* Get App */
   .get-app {
     @apply max-container relative flex w-full  flex-col justify-between gap-32 overflow-hidden bg-green-90 bg-pattern bg-cover bg-center bg-no-repeat px-6 py-12 text-white sm:flex-row sm:gap-12 sm:py-24 lg:px-20 xl:max-h-[598px] 2xl:rounded-5xl;
+  }
+
+  form > div{
+    @apply flex flex-col gap-2;
+  }
+
+  input, textarea{
+    @apply shadow-md px-6 py-2 border border-slate-300
   }
 }
 
