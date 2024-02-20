@@ -7,7 +7,6 @@ interface VideoPlayerProps {
     courseId: number;
     title: string;
     chapterId: number;
-    nextChapterId?: number;
     isLocked: boolean;
     videoUrl?: string;
 };
@@ -16,7 +15,6 @@ const VideoPlayer = ({
     courseId,
     chapterId,
     title,
-    nextChapterId,
     videoUrl,
     isLocked
 }: VideoPlayerProps) => {
@@ -46,9 +44,9 @@ const VideoPlayer = ({
                 </Player>
             ) : (
                 <div className="absolute inset-0 flex items-center justify-center bg-slate-800 flex-col gap-y-2 text-secondary">
-                    <VideoOff className="h-8 w-8" />
+                    <Lock className="h-8 w-8" />
                     <p className="text-sm">
-                        Chapter video is lost somewhere.
+                        This chapter is locked
                     </p>
                 </div>
             )}

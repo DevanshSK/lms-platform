@@ -1,6 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import FormData from "form-data";
-import { ICourse, ICourseGetResponse, ICourseResponse } from "@/redux/types";
+import { ICourse, ICourseGetResponse, ICourseResponse, IEnrollment } from "@/redux/types";
 import baseQuery from "@/redux/services/apiSlice";
 
 
@@ -17,6 +17,12 @@ export const courseApi = createApi({
                 formData: true
             }),
             invalidatesTags: [{ type: "Courses", id: "LIST" }],
+        }),
+        enrollCourse: builder.mutation<IEnrollment, number>({
+            query: (courseId) => ({
+                url: `/course/enroll/${courseId}`,
+                method: "POST",
+            })
         }),
         getAllCourses: builder.query<ICourse[], void>({
             query: () => "/course",
@@ -100,4 +106,4 @@ export const courseApi = createApi({
     })
 })
 
-export const { useCreateCourseMutation, useGetAllCoursesWithParamsQuery, useGetAllCoursesQuery, useGetCourseQuery, useLazyGetCourseQuery, useUpdateCourseMutation, useDeleteCourseMutation } = courseApi;
+export const { useCreateCourseMutation, useEnrollCourseMutation, useGetAllCoursesWithParamsQuery, useGetAllCoursesQuery, useGetCourseQuery, useLazyGetCourseQuery, useUpdateCourseMutation, useDeleteCourseMutation } = courseApi;

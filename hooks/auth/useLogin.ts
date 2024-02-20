@@ -44,12 +44,14 @@ export default function useLogin() {
             {
                 loading: 'Logging out...',
                 success: () => {
-                    router.push("/");
+                    refetch();
+                    router.replace("/");
                     return "Logged out successfully."
                 },
                 error: (error) => {
                     console.log("LOGOUT ERROR");
                     console.log(error);
+                    router.replace("/");
                     return "Something went wrong, Try again"
                 },
             }
