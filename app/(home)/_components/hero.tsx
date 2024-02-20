@@ -21,7 +21,7 @@ const Hero = () => {
         <p className="regular-16 mt-6 text-gray-30 xl:max-w-[520px]">
           Embark on a transformative learning experience like never before! At
           ADD Learn, we believe in the power of education to shape futures, and
-          we're dedicated to providing a cutting-edge platform that seamlessly
+          we&apos;re dedicated to providing a cutting-edge platform that seamlessly
           integrates innovation with the art of teaching and learning.
         </p>
         <div className="my-11 flex flex-wrap gap-5">

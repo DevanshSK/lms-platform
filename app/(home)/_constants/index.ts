@@ -5,7 +5,7 @@ export const NAV_LINKS = [
     { href: '/about', key: 'aboutus', label: 'AboutUs' },
     { href: '/courses', key: 'courses ', label: 'Courses' },
     { href: '/contact', key: 'contact_us', label: 'Contact Us' },
-  ];
+
   
   // COURSES SECTION
   export const PEOPLE_URL = [

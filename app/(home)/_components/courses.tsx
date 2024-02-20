@@ -70,7 +70,7 @@ const Courses = () => {
           <strong>Discover the Path </strong>with Our ADDLearn
         </h2>
         <p className="regular-14 xl:regular-16 mt-5 text-white">
-        Embark on a seamless learning experience with our Learning Management System (LMS). We're your trusted guide through the educational terrain, providing a user-friendly interface and a wealth of resources to ensure you never feel lost in your educational journey.
+        Embark on a seamless learning experience with our Learning Management System (LMS). We&apos;re your trusted guide through the educational terrain, providing a user-friendly interface and a wealth of resources to ensure you never feel lost in your educational journey.
         </p>
           <Image 
             src="/quote.svg"
