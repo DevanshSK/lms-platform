@@ -17,10 +17,10 @@ const ContactForm = () => {
         Cantact Us
       </h1>
       <p className="regular-16 mt-6 text-gray-30 xl:max-w-[520px]">
-      We're here to help and eager to hear from you. 
+      We&apos;re here to help and eager to hear from you. 
       Whether you have questions about our services, what we do, 
       need assistance with your account, or just want 
-      to share feedback, we're ready to assist you every step of the way.
+      to share feedback, we&apos;re ready to assist you every step of the way.
       </p>
       <div className="my-11 flex flex-wrap gap-5">
       </div>

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
 import React from "react";
 import Button from "../button";
@@ -7,7 +8,7 @@ const HeroAbout = () => {
     <section className="max-container padding-container flex flex-col gap-0 py-10 pb-32 md:gap-0 lg:py-20 xl:flex-col ">
       {/* LEFT */}
       
-      <div className="relative z-20 flex flex-1 flex-col xl:w-full flex justify-center items-center">
+      <div className="relative z-20 flex flex-1 flex-col xl:w-full justify-center items-center">
         {/* <Image
           src="/"
           alt="addlearn"
@@ -22,7 +23,7 @@ const HeroAbout = () => {
         <p className="text-center regular-16 mt-[-2] text-gray-30 xl:max-w-[900px] ">
           Embark on a transformative learning experience like never before! At
           ADD Learn, we believe in the power of education to shape futures, and
-          we're dedicated to providing a cutting-edge platform that seamlessly
+          we&apos;re dedicated to providing a cutting-edge platform that seamlessly
           integrates innovation with the art of teaching and learning.
         </p>
         {/* <div className="my-11 flex flex-wrap gap-5">
