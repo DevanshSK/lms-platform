@@ -29,6 +29,7 @@ const SearchPage = ({
         return <p className='text-center p-5 animate-pulse font-semibold'>Hang on tight, this may take a while....</p>
     }
     if (isError) {
+        console.log("FETCHING ERROR");
         console.log(error);
         return <p className='text-center p-5 font-semibold'>Oops, looks like something went wrong....</p>
     }

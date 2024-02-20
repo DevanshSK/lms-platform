@@ -35,7 +35,7 @@ const ChapterIdPage = ({ params }: {
     });
 
     const sortedChapters = chapters.toSorted((a,b) => a.chapter_no - b.chapter_no);
-    const currentChapterIndex = sortedChapters.findIndex(c => +c.id === +params.chapterId);
+    const currentChapterIndex = sortedChapters.findIndex((c: { id: string | number; }) => +c.id === +params.chapterId);
 
     let nextUrl : string;
     let isLastChapter : boolean = false;

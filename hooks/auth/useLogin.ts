@@ -44,7 +44,7 @@ export default function useLogin() {
             {
                 loading: 'Logging out...',
                 success: () => {
-                    refetch();
+                    // refetch();
                     router.replace("/");
                     return "Logged out successfully."
                 },

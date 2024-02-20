@@ -20,11 +20,12 @@ import { useDispatch } from "react-redux";
 const mutex = new Mutex();
 const baseQuery = fetchBaseQuery({
     baseUrl: `${process.env.NEXT_PUBLIC_BACKEND_URL}`,
-    credentials: "include",
+    credentials: "same-origin",
     
     // credentials: "same-origin",
     prepareHeaders: (headers, { getState }) => {
         const token = selectToken(getState() as RootState);
+        headers.set('Access-Control-Allow-Origin', 'https://add-learn.vercel.app');
         
         if (token) {
             headers.set('Authorization', `Bearer ${token}`);
