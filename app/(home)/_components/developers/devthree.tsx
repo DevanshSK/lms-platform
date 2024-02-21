@@ -25,10 +25,10 @@ const DevThree = () => {
    <div className="flex items-center gap-2 p-5">
    </div>
    <div className="flex flex-col w-full gap-3 sm:flex-row">
-    <a href="https://github.com/abhayg951" target="_blank"> 
-    <Button type="button" title="Github" icon="icons8-github.svg" variant="btn_blue"/>
+    <a href="https://www.linkedin.com/in/abhay-gupta-227b65247/" target="_blank"> 
+    <Button type="button" title="Linkedin" icon="icons8-linkedin.svg" variant="btn_blue"/>
     </a> 
-    <a href="" target="_blank">
+    <a href="https://github.com/abhayg951" target="_blank">
     <Button
        type="button"
        title="Github"
