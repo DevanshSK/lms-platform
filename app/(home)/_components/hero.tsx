@@ -59,7 +59,7 @@ const Hero = () => {
       {/* <div className="hero-map" /> */}
       <div className="relative flex flex-1 items-start aspect-square">
         <Image src="/hero-bro.png" fill alt="Hero image" />
-        <div className="relative z-20 flex w-[268px] -top-5 -left-5 flex-col gap-8 rounded-3xl bg-green-90 px-7 py-8 ">
+        <div className="relative z-20 flex w-[268px] -top-5 -left-5 flex-col gap-8 rounded-3xl bg-green-90 px-7 py-8 hover:animate-bounce">
           <div className="flex flex-col">
             <div className="flexBetween">
               <p className="regular-16 text-gray-20">Courses from</p>

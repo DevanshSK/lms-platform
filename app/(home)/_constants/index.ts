@@ -1,7 +1,7 @@
 // NAVIGATION
 export const NAV_LINKS = [
   { href: '/', key: 'home', label: 'Home' },
-  { href: '/', key: 'how_addlearn_work', label: 'How Add Learn Work?' },
+  { href: '/developers', key: 'developers', label: 'Developers' },
   { href: '/about', key: 'aboutus', label: 'AboutUs' },
   { href: '/courses', key: 'courses ', label: 'Courses' },
   { href: '/contact', key: 'contact_us', label: 'Contact Us' },

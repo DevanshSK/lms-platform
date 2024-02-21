@@ -20,7 +20,7 @@ const HeroAbout = () => {
           Learn more about <br/> ADD Learn
         </h1>
         <h2 className="py-5 font-semibold text-xl text-center">Empowering Learning, Unleashing Potential, <br /> Your Path to Success</h2>
-        <p className="text-center regular-16 mt-[-2] text-gray-30 xl:max-w-[900px] ">
+        <p className="text-center regular-16 mt-[-2] text-gray-30 xl:max-w-[900px]">
           Embark on a transformative learning experience like never before! At
           ADD Learn, we believe in the power of education to shape futures, and
           we&apos;re dedicated to providing a cutting-edge platform that seamlessly

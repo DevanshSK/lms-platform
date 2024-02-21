@@ -169,6 +169,12 @@ body,
     @apply text-[14px] font-[600];
   }
 
+  .bold-86 {
+    @apply text-[86px] font-[700] leading-[120%];
+  }
+  .bold-76 {
+    @apply text-[76px] font-[700] leading-[120%];
+  }
   .bold-88 {
     @apply text-[88px] font-[700] leading-[120%];
   }
