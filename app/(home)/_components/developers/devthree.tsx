@@ -22,20 +22,21 @@ const DevThree = () => {
  enabled the smooth functioning of essential functionalities, ensuring robustness and reliability.
  </p>
  <div className="my-11 flex flex-wrap gap-5">
-   <div className="flex items-center gap-2">
+   <div className="flex items-center gap-2 p-5">
    </div>
    <div className="flex flex-col w-full gap-3 sm:flex-row">
     <a href="https://github.com/abhayg951" target="_blank"> 
     <Button type="button" title="Github" icon="icons8-github.svg" variant="btn_blue"/>
     </a> 
-    {/* <a href="" target="_blank">
+    <a href="" target="_blank">
     <Button
        type="button"
        title="Github"
-       icon="/icons8-instagram.svg"
-       variant="btn_white_text"
+       icon="/Github.svg"
+       variant=""
+       className="p-5"
      />
-    </a> */}
+    </a>
    </div>
  </div>
 </div>
