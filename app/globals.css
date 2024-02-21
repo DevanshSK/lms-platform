@@ -89,6 +89,9 @@ body,
   .btn_white { 
     @apply  border-white bg-white px-8 py-3 text-blue-500
   }
+  .btn_white_custom { 
+    @apply  border-white bg-white px-5 py-5 text-blue-500
+  }
   .btn_white_text  { 
     @apply  border-gray-10 bg-white px-8 py-3 text-gray-90
   }

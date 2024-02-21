@@ -69,7 +69,8 @@ const Project = () => {
             </span>
           </p> */}
           <div className="flex flex-col w-full gap-3 sm:flex-row drop-shadow-lg">
-            <Button type="button" title="Learn More" variant="btn_blue"/>
+            <a href="/courses"></a>
+            <Button type="button" title="Go to courses" variant="btn_blue"/>
             {/* <Button
               type="button"
               title="How we work"
