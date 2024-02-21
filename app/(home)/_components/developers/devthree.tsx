@@ -6,7 +6,7 @@ const DevThree = () => {
   return (
     <section className="max-container padding-container flex flex-col gap-20 py-10 pb-32 md:gap-28 lg:py-20 xl:flex-row ">
     <div className="relative flex flex-1 items-start aspect-square rounded-sm">
- <Image src="/Abhay Gupta.png" fill alt="Hero image" className="object-cover w-full rounded-sm h-20 shadow-lg " />
+ <Image src="/Abhay Gupta.jpg" fill alt="Hero image" className="object-cover w-full rounded-sm h-20 shadow-lg " />
 </div>
 {/* RIGHT */}
 

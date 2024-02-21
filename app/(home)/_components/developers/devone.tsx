@@ -35,7 +35,7 @@ const DevOne = () => {
         </div>
         <div className="flex flex-col w-full gap-3 sm:flex-row">
          <a href="https://github.com/DevanshDixitDD" target="_blank"> 
-         <Button type="button" title="Github" icon="icons8-linkedin.svg" variant="btn_blue"/>
+         <Button type="button" title="Linkedin" icon="icons8-linkedin.svg" variant="btn_blue"/>
          </a> 
          <a href="" target="_blank">
          <Button
