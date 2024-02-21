@@ -31,20 +31,21 @@ const DevOne = () => {
        Figma became my canvas, where I designed every detail from layout to components.
       </p>
       <div className="my-11 flex flex-wrap gap-5">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 p-5">
         </div>
         <div className="flex flex-col w-full gap-3 sm:flex-row">
          <a href="https://github.com/DevanshDixitDD" target="_blank"> 
-         <Button type="button" title="Github" icon="icons8-github.svg" variant="btn_blue"/>
+         <Button type="button" title="Github" icon="icons8-linkedin.svg" variant="btn_blue"/>
          </a> 
-         {/* <a href="" target="_blank">
+         <a href="" target="_blank">
          <Button
             type="button"
             title="Github"
-            icon="/icons8-instagram.svg"
-            variant="btn_white_text"
+            icon="/Github.svg"
+            variant=""
+            className="p-5"
           />
-         </a> */}
+         </a>
         </div>
       </div>
     </div>

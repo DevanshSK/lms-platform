@@ -1,6 +1,7 @@
 import React from 'react'
 import Button from '../button'
 import Image from 'next/image'
+import { FaLinkedin } from "react-icons/fa";
 
 const DevTwo = () => {
   return (
@@ -22,17 +23,18 @@ const DevTwo = () => {
         <div className="flex items-center gap-2">
         </div>
         <div className="flex flex-col w-full gap-3 sm:flex-row">
-          <a href="https://github.com/DevanshSK">
+          <a href="https://www.linkedin.com/in/abhay-gupta-227b65247/">
             <Button type="button" title="Github" icon="icons8-github.svg" variant="btn_blue" />
             </a>
-          {/* <a href="">
+          <a href="https://github.com/DevanshSK">
             <Button
             type="button"
             title="Github"
             icon="/github.svg"
-            variant="btn_white_text"
+            variant=""
+            className="p-5"
           />
-            </a> */}
+            </a>
         </div>
       </div>
     </div>
