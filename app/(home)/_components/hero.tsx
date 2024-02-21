@@ -53,7 +53,8 @@ const Hero = () => {
               type="button"
               title="View Our Courses"
               icon="/blue-play.svg"
-              variant="btn_white_text"
+              variant="btn_white_custom"
+              className=""
             />
             </a>
           </div>
