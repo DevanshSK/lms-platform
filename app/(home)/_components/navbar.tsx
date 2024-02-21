@@ -42,7 +42,7 @@ const Navbar = () => {
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56" align="end" forceMount>
           {NAV_LINKS.map((link) => (
-            <DropdownMenuItem>
+            <DropdownMenuItem key={link.key}>
               <Link
                 href={link.href}
                 key={link.key}
