@@ -28,9 +28,6 @@ const Navbar = () => {
         )}
       </ul>
 
-      <div className="lg:flexCenter hidden">
-        
-      </div>
       <div>
       <UserNav />
       <DropdownMenu>
