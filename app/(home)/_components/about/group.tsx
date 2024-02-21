@@ -48,11 +48,13 @@ const Group = () => {
             </span>
           </p> */}
           <div className="flex flex-col w-full gap-3 sm:flex-row">
-            <Button type="button" title="Learn More" variant="btn_blue" />
+            <a href="/contact">
+            <Button type="button" title="Contact us" variant="btn_blue" />
+            </a>
             <Button
               type="button"
-              title="How we work"
-              icon="/blue-play.svg"
+              title="Our Developers"
+              // icon="/blue-play.svg"
               variant="btn_white_text"
             />
           </div>

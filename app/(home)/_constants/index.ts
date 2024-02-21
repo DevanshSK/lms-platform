@@ -69,18 +69,18 @@ export const FOOTER_LINKS = [
 export const FOOTER_CONTACT_INFO = {
   title: 'Contact Us',
   links: [
-    { label: 'Phone no ', value: '123-456-7890' },
-    { label: 'Email ', value: 'addlearn@developers.com' },
+    { label: 'Phone no ', value: '+919827086976' },
+    { label: 'Email ', value: 'addtrends69@gmail.com' },
   ],
 };
 
 export const SOCIALS = {
   title: 'Social',
   links: [
-    '/facebook.svg',
-    '/instagram.svg',
-    '/twitter.svg',
-    '/youtube.svg',
-    '/wordpress.svg',
+    { label:'/github.svg', value: 'https://github.com/DevanshDixitDD'},
+  { label:'/instagram.svg', value: 'https://www.instagram.com/devanshdixit2743/'},
+    { label:'/Twitter X.svg', value: 'https://twitter.com/DevanshDix90156'},
+   {  label:'/youtube.svg', value: 'https://youtube.com/@devanshdixit5250?si=95necUTzfckoZN5l'},
+    { label:'/icons8-behance.svg', value: 'https://www.behance.net/devanshdixit4'},
   ],
 };

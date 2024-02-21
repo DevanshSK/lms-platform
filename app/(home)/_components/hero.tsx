@@ -45,13 +45,17 @@ const Hero = () => {
             </span>
           </p>
           <div className="flex flex-col w-full gap-3 sm:flex-row">
-            <Button type="button" title="Download App" variant="btn_blue" />
+            <a href="/about">
+            <Button type="button" title="Learn More" variant="btn_blue" />
+            </a>
+            <a href="/courses">
             <Button
               type="button"
-              title="How we work"
+              title="View Our Courses"
               icon="/blue-play.svg"
               variant="btn_white_text"
             />
+            </a>
           </div>
         </div>
       </div>

@@ -19,10 +19,11 @@ const HeroDev = () => {
         Learn About Our Developers
       </h1>
       <p className="regular-16 mt-6 text-gray-30 xl:max-w-[520px]">
-        Embark on a transformative learning experience like never before! At
-        ADD Learn, we believe in the power of education to shape futures, and
-        we&apos;re dedicated to providing a cutting-edge platform that seamlessly
-        integrates innovation with the art of teaching and learning.
+      Get to know our talented team members, their unique skills, 
+      and their passion for technology. From frontend wizards crafting 
+      captivating user interfaces to backend maestros architecting 
+      robust server-side solutions, each developer brings a wealth of 
+      expertise and creativity to the table.
       </p>
       <div className="my-11 flex flex-wrap gap-5">
         <div className="flex flex-col w-full gap-3 sm:flex-row">

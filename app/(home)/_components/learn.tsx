@@ -10,18 +10,22 @@ const Learn = () => {
                 <h2 className="bold-40 lg:bold-64 xl:max-w-[320px]">Start Learning Now</h2>
                 <p className="regular-16 text-gray-10">Join a community of enthusiastic learners, engage with expert instructors, and unlock a world of possibilities through our diverse range of courses.</p>
                 <div className="flex w-full flex-col gap-3 whitespace-nowrap xl:flex-row">
+                    <a href="/developers">                        
+                    <Button
+                    type="button"
+                    title="Our Developers"
+                    // icon="/"
+                    variant="btn_white_custom"
+                    />
+                    </a>
+                    <a href="/courses">
                     <Button
                     type="button"
                     title="View Courses"
-                    icon="/course-v.svg"
-                    variant="btn_white"
-                    />
-                    <Button
-                    type="button"
-                    title="Play video"
                     icon="/blue-play.svg"
                     variant="btn_dark_green_outline"
                     />
+                    </a>
                 </div>
             </div>
             <div className="flex flex-1 items-center justify-end">

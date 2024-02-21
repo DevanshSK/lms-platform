@@ -9,7 +9,7 @@ const Footer = () => {
     <footer className="flexCenter mb-24">
       <div className="padding-container max-container flex w-full flex-col gap-14">
         <div className="flex flex-col items-start justify-center gap-[10%] md:flex-row">
-          <Link href="/" className="mb-10">
+          <Link href="/" target="_blank" className="mb-10">
             <Image
               src="/ADD-vector-logo.png"
               alt="logo"
@@ -23,7 +23,7 @@ const Footer = () => {
               <FooterColumn key={columns.title} title={columns.title}>
                 <ul className="regular-14 flex flex-col gap-4 text-gray-30">
                   {columns.links.map((link) => (
-                    <Link href="/" key={link}>
+                    <Link href="mailto:devanshdixit2743@gmail.com" target="_blank" key={link}>
                       {link}
                     </Link>
                   ))}
@@ -35,7 +35,7 @@ const Footer = () => {
               <FooterColumn title={FOOTER_CONTACT_INFO.title}>
                 {FOOTER_CONTACT_INFO.links.map((link) => (
                   <Link
-                    href="/"
+                    href="tel:+919827086976" target="_blank"
                     key={link.label}
                     className="flex gap-4 md:flex-col lg:flex-row"
                   >
@@ -51,8 +51,8 @@ const Footer = () => {
               <FooterColumn title={SOCIALS.title}>
                 <ul className="regular-14 flex gap-4 text-gray-30">
                   {SOCIALS.links.map((link) => (
-                    <Link href="/" key={link}>
-                      <Image src={link} alt="logo" width={24} height={24} />
+                    <Link href={link.value} target="_blank" key={link.value}>
+                      <Image src={link.label} alt="logo" width={24} height={24} />
                     </Link>
                   ))}
                 </ul>
@@ -61,7 +61,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="border bg-gray-20"/>
-        <p className="regular-14 w-full text-center text-gray-30">2023 ADD Learn | All right reserved</p>
+        <p className="regular-14 w-full text-center text-gray-30">2025 ADD Learn | All right reserved</p>
       </div>
     </footer>
   );
