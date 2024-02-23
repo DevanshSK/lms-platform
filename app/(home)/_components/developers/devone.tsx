@@ -24,7 +24,7 @@ const DevOne = () => {
       </h1>
       <p className="regular-18 mt-6 text-gray-30 xl:max-w-[520px]">
       The contribution to the Learning Management System by 
-      <a href="https://www.linkedin.com/in/devanshdixit27/" target="_blank" className="font-semibold bg-gradient-to-r from-blue-400 to-blue-500 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-300 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px] dark:from-purple-800 dark:to-purple-900"> Devansh Dixit </a>
+      <a href="https://twitter.com/DevanshDix90156" target="_blank" className="font-semibold bg-gradient-to-r from-blue-400 to-blue-500 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-300 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px] dark:from-purple-800 dark:to-purple-900"> Devansh Dixit </a>
        was a blend of meticulous design, technical expertise, and unwavering dedication. 
        As I crafted the frontend, I prioritized seamless user experience and interface. 
        Using Next.js and TypeScript, I ensured flawless performance across devices. 
@@ -34,15 +34,15 @@ const DevOne = () => {
         <div className="flex items-center gap-2 p-5">
         </div>
         <div className="flex flex-col w-full gap-3 sm:flex-row">
-         <a href="https://github.com/DevanshDixitDD" target="_blank"> 
+         <a href="" target="_blank"> 
          <Button type="button" title="Linkedin" icon="icons8-linkedin.svg" variant="btn_blue"/>
          </a> 
-         <a href="" target="_blank">
+         <a href="https://github.com/DevanshDixitDD" target="_blank">
          <Button
             type="button"
             title="Github"
             icon="/Github.svg"
-            variant=""
+            variant="https://www.linkedin.com/in/devanshdixit27/"
             className="p-5"
           />
          </a>
