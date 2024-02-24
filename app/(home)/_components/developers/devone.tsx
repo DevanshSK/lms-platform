@@ -41,7 +41,7 @@ const DevOne = () => {
          <Button
             type="button"
             title="Github"
-            icon="/Github.svg"
+            icon="/github.svg"
             variant=""
             className="p-5"
           />
