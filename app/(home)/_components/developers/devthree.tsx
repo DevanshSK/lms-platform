@@ -16,7 +16,7 @@ const DevThree = () => {
  </h1>
  <p className="regular-18 mt-6 text-gray-30 xl:max-w-[520px]">
  My journey with the Learning Management System (LMS) was 
- <a href="https://www.linkedin.com/in/abhay-gupta-227b65247/" target="_blank" className="font-semibold bg-gradient-to-r from-blue-400 to-blue-500 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-300 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px] dark:from-purple-800 dark:to-purple-900"> Abhay Gupta </a>
+ <a href="https://twitter.com/abhay_ag12" target="_blank" className="font-semibold bg-gradient-to-r from-blue-400 to-blue-500 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-300 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px] dark:from-purple-800 dark:to-purple-900"> Abhay Gupta </a>
  Abhay Gupta played a key role in developing the server-side infrastructure 
  of our Learning Management System (LMS). His expertise in backend technologies 
  enabled the smooth functioning of essential functionalities, ensuring robustness and reliability.

@@ -10,7 +10,7 @@ const DevTwo = () => {
     
     <div className="relative z-20 flex flex-1 flex-col xl:w-1/2">
       <h1 className="bold-32 lg:bold-86">
-      Member 2 <br /><span className="text-blue-500"> <a href="" target="_blank" className="font-semibold bg-gradient-to-r from-blue-400 to-blue-500 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-300 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px] dark:from-purple-800 dark:to-purple-900"> Devansh Singh Kushwah</a>  </span>
+      Member 2 <br /><span className="text-blue-500"> <a href="https://www.instagram.com/devanshsk/" target="_blank" className="font-semibold bg-gradient-to-r from-blue-400 to-blue-500 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-300 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px] dark:from-purple-800 dark:to-purple-900"> Devansh Singh Kushwah</a>  </span>
       </h1>
       <p className="regular-18 mt-6 text-gray-30 xl:max-w-[520px]">
       <a href="https://twitter.com/devansh_sk" target="_blank" className="font-semibold bg-gradient-to-r from-blue-400 to-blue-500 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-300 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px] dark:from-purple-800 dark:to-purple-900"> Devansh Singh Kushwah </a>
@@ -23,7 +23,7 @@ const DevTwo = () => {
           <a href="https://www.linkedin.com/in/devanshsk/">
             <Button type="button" title="Linkedin" icon="icons8-linkedin.svg" variant="btn_blue" />
             </a>
-          <a href="https://github.com/DevanshSK">
+          <a href="https://github.com/DevanshSK" target="_blank">
             <Button
             type="button"
             title="Github"
