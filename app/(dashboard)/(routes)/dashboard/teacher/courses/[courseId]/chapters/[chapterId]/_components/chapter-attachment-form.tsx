@@ -28,6 +28,8 @@ import { Button } from "@/components/ui/button";
 import { IChapterResponse } from "@/redux/types";
 import { useUpdateChapterMutation } from "@/redux/features/chapters/chapterApiSlice";
 import Link from "next/link";
+import { CldUploadWidget } from "next-cloudinary";
+import { TbFilePlus } from "react-icons/tb";
 
 
 
@@ -55,52 +57,30 @@ const ChapterAttachmentForm = ({ initialData, courseId, chapterId }: ChapterAtta
 
     const toggleEdit = () => setIsEditing((current) => !current)
 
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-    })
+    const handleUpload = (value: any) => {
+        console.log(value);
+        if (value.event === "success") {
+            const formData = new FormData();
+            formData.append("resources_url", (value.info.secure_url));
 
-    const { isSubmitting, isValid } = form.formState;
-
-    const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        const formData = new FormData();
-        formData.append("notes", values.attachment);
-
-
-        toast.promise(
-            updateChapter({ courseId: courseId, chapterId: chapterId, chapter: formData }).unwrap(),
-            {
-                loading: 'Uploading Attachment...',
-                success: (data) => {
-                    toggleEdit();
-                    router.refresh();
-                    return "Chapter updated"
-                },
-                error: (error) => {
-                    console.log("Chapter updation error");
-                    console.log(error);
-                    return "Something went wrong"
-                },
-            }
-        );
-    }
-
-
-
-    // Initialize react dropzone
-    const { getRootProps, getInputProps } = useDropzone({
-        accept: {
-            'application/pdf': ['.pdf'],
-            'application/msword': ['.doc'],
-            'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx']
-        },
-        onDrop: (acceptedFiles) => {
-            form.setValue('attachment', acceptedFiles[0], {
-                shouldValidate: true
-            });
+            toast.promise(
+                updateChapter({ courseId: courseId, chapterId: chapterId, chapter: formData }).unwrap(),
+                {
+                    loading: 'Uploading Resource...',
+                    success: (data) => {
+                        toggleEdit();
+                        router.refresh();
+                        return "Chapter updated"
+                    },
+                    error: (error) => {
+                        console.log("Chapter updation error");
+                        console.log(error);
+                        return "Something went wrong"
+                    },
+                }
+            );
         }
-    });
-
-    const attachment = form.watch('attachment');
+    }
 
     return (
         <div className="mt-6 border bg-slate-100 rounded-md p-4">
@@ -110,13 +90,13 @@ const ChapterAttachmentForm = ({ initialData, courseId, chapterId }: ChapterAtta
                     {isEditing && (
                         <>Cancel</>
                     )}
-                    {!isEditing && !initialData.resource_url && (
+                    {!isEditing && !initialData.resources_url && (
                         <>
                             <PlusCircle className="h-4 w-4 mr-2" />
                             Add attachment
                         </>
                     )}
-                    {!isEditing && initialData.resource_url && (
+                    {!isEditing && initialData.resources_url && (
                         <>
                             <Pencil className="h-4 w-4 mr-2" />
                             Edit attachment
@@ -126,16 +106,16 @@ const ChapterAttachmentForm = ({ initialData, courseId, chapterId }: ChapterAtta
             </div>
 
             {!isEditing && (
-                !initialData.resource_url ? (
+                !initialData.resources_url ? (
                     <>No chapter attachments</>
                 ) : (
                     <div className="relative mt-2">
                         <div className="flex items-center p-3 bg-blue-100 border-blue-200 text-blue-700 rounded-md">
                             <FileIcon className="h-4 w-4 mr-2 flex-shrink-0" />
                             <p className="text-xs line-clamp-1">
-                                {initialData.resource_url}
+                                {initialData.resources_url}
                             </p>
-                            <Link href={initialData.resource_url} download target="_blank" >
+                            <Link href={initialData.resources_url} download target="_blank" >
                                 <Download className="h-4 w-4" />
                             </Link>
                         </div>
@@ -144,34 +124,26 @@ const ChapterAttachmentForm = ({ initialData, courseId, chapterId }: ChapterAtta
             )}
 
             {isEditing && (
-                <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">
-                        <FormField control={form.control} name="attachment" render={({ field }) => (
-                            <FormItem>
-                                <FormControl>
-                                    <div className="relative flex items-center justify-center h-60  bg-slate-200 p-2 rounded-md border-dashed border-2 border-gray-500" {...getRootProps()}>
-                                        <input {...getInputProps()} />
-                                        <div className="flex flex-col items-center justify-center">
-                                            <FileIcon className="h-10 w-10 text-slate-500" />
-                                            <p className="text-sm text-blue-700 font-semibold">Choose files or drag and drop</p>
-                                            <p className="text-xs text-muted-foreground">Video (.mp4)</p>
-                                        </div>
-                                    </div>
-                                </FormControl>
-                                <FormDescription className="text-xs text-muted-foreground mt-4">Add anything your student might need to complete this course....</FormDescription>
-                                {attachment && <FormLabel>{attachment.name} - {attachment.size} bytes</FormLabel>}
-                                <FormMessage />
-                            </FormItem>
-                        )} />
-
-                        <div className="flex items-center gap-x-2">
-                            <Button type="submit" disabled={!isValid || isSubmitting}>
-                                Save
-                            </Button>
-                            <Button type="button" variant='ghost' onClick={() => form.reset()}>Reset</Button>
-                        </div>
-                    </form>
-                </Form>
+                <>
+                <CldUploadWidget
+                    onUpload={handleUpload}
+                    uploadPreset="addVideoUploadingPreset"
+                    options={{
+                        maxFiles: 1
+                    }}
+                >
+                    {({ open }) => {
+                        return (
+                            <div onClick={() => open?.()}
+                                className="relative cursor-pointer hover:opacity-70 transition border-dashed border-2 p-20 border-neutral-300 flex flex-col justify-center items-center gap-4 text-neutral-600"
+                            >
+                                <TbFilePlus size={50} />
+                                <div className="font-semibold text-lg">Click to upload</div>
+                            </div>
+                        )
+                    }}
+                </CldUploadWidget>
+            </>
             )}
 
         </div>
