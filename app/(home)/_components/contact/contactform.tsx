@@ -13,8 +13,8 @@ const ContactForm = () => {
         height={50}
         className="absolute left-[-5px] top-[-30px] w-10 lg:w-[50px]"
       /> */}
-      <h1 className="bold-32 lg:bold-88">
-        Contact Us
+      <h1 className="bold-32 lg:bold-64">
+      Need Assistance Contact Us
       </h1>
       <p className="regular-16 mt-6 text-gray-30 xl:max-w-[520px]">
       We&apos;re here to help and eager to hear from you. 
