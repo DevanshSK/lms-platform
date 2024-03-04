@@ -19,28 +19,28 @@ export const PEOPLE_URL = [
 export const FEATURES = [
   {
     title: 'User-Friendly Interface',
-    icon: '/map.svg',
+    icon: '/ui.png',
     variant: 'green',
     description:
       'Our LMS boasts an intuitive and user-friendly interface, making it easy for both instructors and students to navigate and access the platforms robust features.',
   },
   {
     title: 'Multi-Modal Content Delivery',
-    icon: '/calendar.svg',
+    icon: '/learning.png',
     variant: 'green',
     description:
       "Diversify your teaching methods with support for various content types, including video lectures, interactive quizzes, assignments, and discussion forums. ",
   },
   {
     title: 'Comprehensive Course Management',
-    icon: '/tech.svg',
+    icon: '/course.png',
     variant: 'green',
     description:
       'Effortlessly manage your courses with our comprehensive set of tools. Schedule classes, track attendance, and manage assignments with ease. ',
   },
   {
     title: 'Collaborative Learning Spaces',
-    icon: '/location.svg',
+    icon: '/collab.png',
     variant: 'orange',
     description:
       'Foster collaboration among students with built-in discussion forums, group projects, and collaborative assignments.',
