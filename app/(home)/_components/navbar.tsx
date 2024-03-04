@@ -16,7 +16,7 @@ import {
 
 const Navbar = () => {
   return (
-    <nav className="flexBetween max-container padding-relative z-30 py-5">
+    <nav className="flexBetween max-container padding-relative z-30 py-5 px-5">
       <Link href="/">
         <Image src="/ADD-vector-logo.png" alt="logo" width={74} height={29} />
       </Link>

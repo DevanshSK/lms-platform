@@ -78,7 +78,7 @@ export interface IChapterResponse{
     description: string;
     chapter_no: number;
     video_url: string;
-    resource_url: string;
+    resources_url: string;
     is_published: true;
     course_id: number;
     created_at: string;

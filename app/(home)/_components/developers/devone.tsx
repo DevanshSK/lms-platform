@@ -49,6 +49,7 @@ const DevOne = () => {
             title="Github"
             icon="/github.svg"
             variant="https://www.linkedin.com/in/devanshdixit27/"
+
             className="p-5"
           />
          </a>

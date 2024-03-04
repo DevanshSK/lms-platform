@@ -5,11 +5,10 @@ import Image from 'next/image'
 const DevThree = () => {
   return (
     <section className="max-container padding-container flex flex-col gap-20 py-10 pb-32 md:gap-28 lg:py-20 xl:flex-row ">
-    <div className="relative flex flex-1 items-start aspect-square rounded-sm">
- <Image src="/Abhay Gupta.jpg" fill alt="Hero image" className="object-cover w-full rounded-sm h-20 shadow-lg " />
-</div>
-{/* RIGHT */}
-
+      <div className="relative flex flex-1 items-start aspect-square rounded-sm">
+        <Image src="/Abhay Gupta.jpg" fill alt="Hero image" className="object-cover w-full rounded-sm h-20 shadow-lg " />
+      </div>
+      {/* RIGHT */}
 <div className="relative z-20 flex flex-1 flex-col xl:w-1/2">
  <h1 className="bold-32 lg:bold-86">
    Member 3 <br /><span className="text-blue-500"> <a href="https://www.instagram.com/abhay_a.g/" target="_blank" className="font-semibold bg-gradient-to-r from-blue-400 to-blue-500 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-300 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px] dark:from-purple-800 dark:to-purple-900"> Abhay Gupta </a>  </span>
@@ -41,7 +40,7 @@ const DevThree = () => {
  </div>
 </div>
 
-</section>
+    </section>
   )
 }
 

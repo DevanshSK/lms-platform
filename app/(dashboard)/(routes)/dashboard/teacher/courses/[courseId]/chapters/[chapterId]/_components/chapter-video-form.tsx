@@ -1,27 +1,16 @@
 "use client";
 import * as z from "zod";
-
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { Pencil, PlusCircle, Video } from "lucide-react";
+import { TbVideoPlus } from "react-icons/tb"
 import { useRouter } from "next/navigation";
-import { useDropzone } from "react-dropzone";
 import FormData from "form-data";
+import { CldUploadWidget} from "next-cloudinary";
 
 // import "node_modules/video-react/dist/video-react.css";
-import {BigPlayButton, Player} from "video-react";
+import { BigPlayButton, Player } from "video-react";
 
-import {
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage
-} from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 
 
@@ -36,68 +25,37 @@ interface ChapterVideoFormProps {
     chapterId: number;
 }
 
-
-const formSchema = z.object({
-    video: z.instanceof(File)
-        .describe("Upload course video")
-})
-
-type FormType = z.infer<typeof formSchema>;
-
-
 const ChapterVideoForm = ({ initialData, courseId, chapterId }: ChapterVideoFormProps) => {
     const [isEditing, setIsEditing] = useState(false);
     const [updateChapter] = useUpdateChapterMutation();
     const router = useRouter();
 
-
-
     const toggleEdit = () => setIsEditing((current) => !current)
 
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-    })
+    const handleUpload = (value: any) => {
+        console.log(value);
+        if (value.event === "success") {
+            const formData = new FormData();
+            formData.append("video_url", (value.info.secure_url));
 
-    const { isSubmitting, isValid } = form.formState;
-
-    const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        const formData = new FormData();
-        formData.append("video", values.video);
-
-
-        toast.promise(
-            updateChapter({ courseId: courseId, chapterId: chapterId, chapter: formData }).unwrap(),
-            {
-                loading: 'Uploading Video...',
-                success: (data) => {
-                    toggleEdit();
-                    router.refresh();
-                    return "Chapter updated"
-                },
-                error: (error) => {
-                    console.log("Chapter updation error");
-                    console.log(error);
-                    return "Something went wrong"
-                },
-            }
-        );
-    }
-
-
-
-    // Initialize react dropzone
-    const { getRootProps, getInputProps } = useDropzone({
-        accept: {
-            'video/mp4': ['.mp4'],
-        },
-        onDrop: (acceptedFiles) => {
-            form.setValue('video', acceptedFiles[0], {
-                shouldValidate: true
-            });
+            toast.promise(
+                updateChapter({ courseId: courseId, chapterId: chapterId, chapter: formData }).unwrap(),
+                {
+                    loading: 'Uploading Video...',
+                    success: (data) => {
+                        toggleEdit();
+                        router.refresh();
+                        return "Chapter updated"
+                    },
+                    error: (error) => {
+                        console.log("Chapter updation error");
+                        console.log(error);
+                        return "Something went wrong"
+                    },
+                }
+            );
         }
-    });
-
-    const video = form.watch('video');
+    }
 
     return (
         <div className="mt-6 border bg-slate-100 rounded-md p-4">
@@ -143,34 +101,26 @@ const ChapterVideoForm = ({ initialData, courseId, chapterId }: ChapterVideoForm
             )}
 
             {isEditing && (
-                <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">
-                        <FormField control={form.control} name="video" render={({ field }) => (
-                            <FormItem>
-                                <FormControl>
-                                    <div className="relative flex items-center justify-center h-60  bg-slate-200 p-2 rounded-md border-dashed border-2 border-gray-500" {...getRootProps()}>
-                                        <input {...getInputProps()} />
-                                        <div className="flex flex-col items-center justify-center">
-                                            <Video className="h-10 w-10 text-slate-500" />
-                                            <p className="text-sm text-blue-700 font-semibold">Choose files or drag and drop</p>
-                                            <p className="text-xs text-muted-foreground">Video (.mp4)</p>
-                                        </div>
-                                    </div>
-                                </FormControl>
-                                <FormDescription className="text-xs text-muted-foreground mt-4">16:9 aspect ratio recommended.</FormDescription>
-                                {video && <FormLabel>{video.name} - {video.size} bytes</FormLabel>}
-                                <FormMessage />
-                            </FormItem>
-                        )} />
-
-                        <div className="flex items-center gap-x-2">
-                            <Button type="submit" disabled={!isValid || isSubmitting}>
-                                Save
-                            </Button>
-                            <Button type="button" variant='ghost' onClick={() => form.reset()}>Reset</Button>
-                        </div>
-                    </form>
-                </Form>
+                <>
+                    <CldUploadWidget
+                        onUpload={handleUpload}
+                        uploadPreset="addVideoUploadingPreset"
+                        options={{
+                            maxFiles: 1
+                        }}
+                    >
+                        {({ open }) => {
+                            return (
+                                <div onClick={() => open?.()}
+                                    className="relative cursor-pointer hover:opacity-70 transition border-dashed border-2 p-20 border-neutral-300 flex flex-col justify-center items-center gap-4 text-neutral-600"
+                                >
+                                    <TbVideoPlus size={50} />
+                                    <div className="font-semibold text-lg">Click to upload</div>
+                                </div>
+                            )
+                        }}
+                    </CldUploadWidget>
+                </>
             )}
 
         </div>

@@ -49,10 +49,12 @@ export const authApi = createApi({
                     await queryFulfilled;
                     dispatch(logout());
                     dispatch(logoutUser());
+                    dispatch(userApi.util.resetApiState())
                 } catch (error) {
                     console.log("Error Logging out", error);
                     dispatch(logout());
                     dispatch(logoutUser());
+                    dispatch(userApi.util.resetApiState())
                 }
             },
         })

@@ -9,7 +9,7 @@ import { selectUser } from "@/redux/features/user/userSlice";
 import { useAppSelector } from "@/redux/hooks";
 import { redirect } from "next/navigation";
 import VideoPlayer from "./_components/video-player";
-import { File } from "lucide-react";
+import { Download, File } from "lucide-react";
 import CourseEnrollButton from "./_components/course-enroll-button";
 import { Button } from "@/components/ui/button";
 import CourseProgressButton from "./_components/course-progress-button";
@@ -95,21 +95,22 @@ const ChapterIdPage = ({ params }: {
             <div>
               <Preview value={currentChapter.description!} />
             </div>
-            {!!currentChapter.resource_url && (
+            {!!currentChapter.resources_url && (
               <>
                 <Separator />
                 <div className="p-4">
                   {
                     <a 
-                      href={currentChapter.resource_url}
+                      href={currentChapter.resources_url}
                       target="_blank"
                       key={currentChapter.id}
                       className="flex items-center p-3 w-full bg-blue-200 border text-blue-700 rounded-md hover:underline"
                     >
                       <File />
-                      <p className="line-clamp-1">
+                      <p className="line-clamp-1 ml-2">
                         {currentChapter.title} Attachment
                       </p>
+                      <Download className="ml-auto" />
                     </a>
                   }
                 </div>

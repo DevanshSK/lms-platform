@@ -4,16 +4,21 @@ import { useGetCoursesChaptersQuery } from '@/redux/features/chapters/chapterApi
 import { useGetCourseQuery } from '@/redux/features/courses/courseApiSlice';
 import { redirect } from 'next/navigation';
 import React from 'react'
-import CourseSidebar from './_components/course-sidebar';
-import CourseNavbar from './_components/course-navbar';
+import CourseSidebar from './course-sidebar';
+import CourseNavbar from './course-navbar';
 
 
-const CourseLayout = ({ children, params }: {
+
+type Props = {
     children: React.ReactNode,
     params: {
         courseId: number;
     }
-}) => {
+}
+
+
+
+const CourseLayout = ({ children, params }: Props) => {
     const { data: course, isLoading: isCourseLoading } = useGetCourseQuery(params.courseId);
     const { data: chapters = [], isLoading: isChapterLoading } = useGetCoursesChaptersQuery(params.courseId);
 
