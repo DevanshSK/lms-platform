@@ -1,6 +1,6 @@
 <p align="center">
   <a href="" rel="noopener">
- <img width=200px height=200px src="https://i.imgur.com/6wj0hh6.jpg" alt="Project logo"></a>
+ <img width=200px style="object-fit: contain;" height=200px src="https://res.cloudinary.com/dnlomsnxb/image/upload/v1709992037/demo/vjqqhss2dbrrgsv21ki0.png" alt="Project logo"></a>
 </p>
 
 <h3 align="center">ADD Learn</h3>
