@@ -1,6 +1,6 @@
 <p align="center">
   <a href="" rel="noopener">
- <img width=200px style="object-fit: contain;" height=200px src="https://res.cloudinary.com/dnlomsnxb/image/upload/v1709992037/demo/vjqqhss2dbrrgsv21ki0.png" alt="Project logo"></a>
+ <img width=200px style="object-fit: contain;" height=200px src="./Add-learn.png" alt="Project logo"></a>
 </p>
 
 <h3 align="center">ADD Learn</h3>
@@ -30,7 +30,6 @@
 - [🚀 Deployment ](#-deployment-)
 - [⛏️ Built Using ](#️-built-using-)
 - [✍️ Authors ](#️-authors-)
-- [🎉 Acknowledgements ](#-acknowledgements-)
 
 ## 🧐 About <a name = "about"></a>
 Add Learn is an online e-learning platform aiming to provide real world skills to the youth without any distractions.
@@ -142,12 +141,12 @@ Check out [Next.js deployment documentation](https://nextjs.org/docs/deployment)
   - Designed and developed mordern and responsive landing pages with asthetically pleasing animations.
   - Implemented NextJS with Server components to make the landing pages performance faster.
 
-See also the list of [contributors](https://github.com/kylelobo/The-Documentation-Compendium/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/DevanshSK/add-learn/contributors) who participated in this project.
 
-## 🎉 Acknowledgements <a name = "acknowledgement"></a>
+<!-- ## 🎉 Acknowledgements <a name = "acknowledgement"></a>
 - Hat tip to anyone whose code was used
 - Inspiration
-- References
+- References -->
 
 
 
