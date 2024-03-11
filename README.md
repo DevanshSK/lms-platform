@@ -1,6 +1,6 @@
 <p align="center">
-  <a href="" rel="noopener">
- <img width=200px style="object-fit: contain;" height=200px src="./Add-learn.png" alt="Project logo"></a>
+  <a href="https://github.com/DevanshSK/add-learn" rel="noopener">
+ <img style="object-fit: contain;" height=200px src="./Add-learn.png" alt="Project logo"></a>
 </p>
 
 <h3 align="center">ADD Learn</h3>
