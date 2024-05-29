@@ -6,15 +6,10 @@ import SearchInput from '@/components/search-input';
 import { useSearchParams } from 'next/navigation';
 import { useGetAllCoursesWithParamsQuery } from '@/redux/features/courses/courseApiSlice';
 import CoursesList from '@/components/courses-list';
-import { useGetEnrollmentsQuery } from '@/redux/features/user/userApiSlice';
 import { Separator } from '@/components/ui/separator';
+import CourseSkeleton from '@/components/skeletons/CourseSkeleton';
 
-interface SearchPageProps {
-    searchParams: {
-        title: string;
-        categoryId: number;
-    }
-}
+
 
 const SearchPage = () => {
     const params = useSearchParams();
@@ -31,7 +26,7 @@ const SearchPage = () => {
     }, [params, refetch]);
 
     if (isCourseLoading || isCategoriesLoading) {
-        return <p className='text-center p-5 animate-pulse font-semibold'>Hang on tight, this may take a while....</p>
+        return <CourseSkeleton />
     }
     if (isError || isCourseError) {
         console.log("FETCHING ERROR");
@@ -43,7 +38,7 @@ const SearchPage = () => {
 
     return (
         <div className='container mb-16'>
-            <div className='px-6 pt-6 md:mb-0 block'>
+            <div className='px-6 pt-3 md:mb-0 block'>
                 <SearchInput />
             </div>
             <div className='p-6'>
