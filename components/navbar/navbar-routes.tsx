@@ -30,7 +30,7 @@ const NavbarRoutes = () => {
           <SearchInput />
         </div>
       )}
-      <div className="flex gap-x-2 ml-auto items-center">
+      <div className="flex gap-x-2 items-center w-full justify-end ">
         {(isTecherPage || isPlayerPage) && (
           <Link href={user ? "/dashboard" : "/courses"}>
             <Button size="sm" variant="ghost">

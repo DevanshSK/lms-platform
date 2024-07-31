@@ -21,15 +21,15 @@ const CategoriesItem = ({
     const searchParams = useSearchParams();
 
     const currentCategoryId = searchParams.get('categoryId');
-    const currentTitle = searchParams.get('title');
 
     const isSelected = Number(currentCategoryId) === value;
 
     const onClick = () => {
+        const currentParams = Object.fromEntries(searchParams.entries());
         const url = qs.stringifyUrl({
             url: pathname,
             query: {
-                title: currentTitle,
+                ...currentParams,
                 categoryId: isSelected ? null : value,
             }
         }, { skipNull: true, skipEmptyString: true });

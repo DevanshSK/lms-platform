@@ -8,6 +8,7 @@ import { useSearchParams } from 'next/navigation';
 import { useGetAllCoursesWithParamsQuery } from '@/redux/features/courses/courseApiSlice';
 import CoursesList from '@/components/courses-list';
 import { useGetEnrollmentsQuery } from '@/redux/features/user/userApiSlice';
+import PaginationForm from '@/components/pagination-form';
 
 
 
@@ -15,8 +16,9 @@ const SearchPage = () => {
   const params = useSearchParams();
   const title =  params.get('title') || "";
   const categoryId =  params.get('categoryId') ? Number(params.get("categoryId")) : undefined;
+  const page = params.get("page") ? Number(params.get('page')) : 1;
   const { data: categories, isLoading: isCategoriesLoading, isError, error } = useGetCategoriesQuery();
-  const { data: courses = [], isLoading: isCourseLoading, refetch, error: CourseError, isError: isCourseError } = useGetAllCoursesWithParamsQuery({ title: title, categoryId: categoryId });
+  const { data: courses = [], isLoading: isCourseLoading, refetch, error: CourseError, isError: isCourseError } = useGetAllCoursesWithParamsQuery({ title: title, categoryId: categoryId, page: page });
   const { data: enrollments = [], isLoading: isEnrollmentsLoading } = useGetEnrollmentsQuery();
 
   useEffect(() => {
@@ -51,6 +53,7 @@ const SearchPage = () => {
           items={enrolledCourses}
         />
       </div>
+      <PaginationForm isValid={true} />
     </>
   )
 }

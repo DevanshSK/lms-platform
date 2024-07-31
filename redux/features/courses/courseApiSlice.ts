@@ -46,15 +46,21 @@ export const courseApi = createApi({
             },
 
         }),
-        getAllCoursesWithParams: builder.query<ICourse[], { title?: string; categoryId?: number }>({
-            query: ({ title, categoryId }) => ({
-                url: "/course",
-                method: "GET",
-                params: {
-                    q: title,
-                    cate: categoryId,
+        getAllCoursesWithParams: builder.query<ICourse[], { title?: string; categoryId?: number; page: number }>({
+            query: ({ title, categoryId, page=1 }) => {
+                const skip = (page - 1) * 12;
+                console.log(page, skip);
+                return {
+                    url: "/course",
+                    method: "GET",
+                    params: {
+                        q: title,
+                        cate: categoryId,
+                        limit: 12,
+                        skip: skip,
+                    }
                 }
-            }),
+            },
             providesTags: (result) =>
                 result
                     ? [

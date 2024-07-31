@@ -8,6 +8,7 @@ import { useGetAllCoursesWithParamsQuery } from '@/redux/features/courses/course
 import CoursesList from '@/components/courses-list';
 import { Separator } from '@/components/ui/separator';
 import CourseSkeleton from '@/components/skeletons/CourseSkeleton';
+import PaginationForm from '@/components/pagination-form';
 
 
 
@@ -15,11 +16,12 @@ const SearchPage = () => {
     const params = useSearchParams();
 
     const title =  params.get('title') || "";
+    const page = params.get("page") ? Number(params.get('page')) : 1;
     const categoryId =  params.get('categoryId') ? Number(params.get("categoryId")) : undefined;
-    console.log(title, categoryId)
+    console.log(title, categoryId, page);
     // console.log(searchParams.title, searchParams.categoryId)
     const { data: categories=[], isLoading: isCategoriesLoading, isError, error } = useGetCategoriesQuery();
-    const { data: courses = [], isLoading: isCourseLoading, refetch, error: CourseError, isError: isCourseError } = useGetAllCoursesWithParamsQuery({ title: title, categoryId: categoryId });
+    const { data: courses = [], isLoading: isCourseLoading, refetch, error: CourseError, isError: isCourseError } = useGetAllCoursesWithParamsQuery({ title: title, categoryId: categoryId, page: page });
 
     useEffect(() => {
         refetch();
@@ -49,6 +51,7 @@ const SearchPage = () => {
                     items={courses}
                 />
             </div>
+            <PaginationForm isValid={courses.length === 0} />
             <Separator className='mb-5 mt-10' />
         </div>
     )
